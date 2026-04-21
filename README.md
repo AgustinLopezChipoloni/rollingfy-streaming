@@ -1,16 +1,45 @@
-# React + Vite
+# 🎵 Rollingfy - Music Streaming App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![LocalStorage](https://img.shields.io/badge/LocalStorage-FFCA28?style=for-the-badge&logo=google-chrome&logoColor=black)
 
-Currently, two official plugins are available:
+[cite_start]**Rollingfy** es una plataforma de administración y reproducción de música desarrollada como proyecto integrador para **RollingCode School**[cite: 2, 4]. La aplicación permite a los usuarios descubrir canciones, gestionar sus propias playlists y ofrece un panel de administración completo para la gestión del catálogo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Características Principales
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 👤 Perfil Usuario / Invitado
+- [cite_start]**Exploración de Catálogo:** Buscador dinámico por nombre de canción o artista[cite: 26].
+- [cite_start]**Reproducción Sincronizada:** Reproductor fijo que permite visualizar la información de la canción actual[cite: 27].
+- [cite_start]**Playlists Personales:** Los usuarios logueados pueden gestionar su lista de reproducción (agregar/eliminar canciones)[cite: 30].
+- [cite_start]**Diseño Responsive:** Interfaz moderna inspirada en Spotify, adaptada a dispositivos móviles[cite: 22].
 
-## Expanding the ESLint configuration
+### 🛠️ Perfil Administrador
+- [cite_start]**Panel CRUD:** Interfaz completa para crear, leer, editar y eliminar canciones del catálogo[cite: 32].
+- [cite_start]**Gestión de Usuarios:** Visualización y control de cuentas registradas[cite: 33].
+- [cite_start]**Rutas Protegidas:** Sistema de seguridad que impide el acceso no autorizado al panel administrativo[cite: 34].
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- [cite_start]**Frontend:** React (Vite) [cite: 11]
+- [cite_start]**Enrutamiento:** React Router DOM [cite: 15]
+- **Estilos:** Bootstrap 5
+- **Iconografía:** React Icons
+- [cite_start]**Persistencia de Datos:** LocalStorage & SessionStorage [cite: 13, 14]
+
+---
+
+## 📂 Estructura del Proyecto
+
+```text
+src/
+ ┣ 📂 assets/        # Recursos estáticos (imágenes, logos)
+ ┣ 📂 components/    # Componentes reutilizables (Navbar, Player, FormAuth)
+ [cite_start]┣ 📂 helpers/       # Lógica de LocalStorage y datos iniciales [cite: 36]
+ ┣ 📂 pages/         # Vistas principales (Home, Admin, Login, Playlist)
+ ┣ App.jsx           # Configuración de rutas y estado global
+ ┗ main.jsx          # Punto de entrada de la aplicación
