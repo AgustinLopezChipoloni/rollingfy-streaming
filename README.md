@@ -11,25 +11,25 @@
 ## 🚀 Características Principales
 
 ### 👤 Perfil Usuario / Invitado
-- **Exploración de Catálogo:** Buscador dinámico por nombre de canción o artista
-- **Reproducción Sincronizada:** Reproductor fijo que permite visualizar la información de la canción actual
-- **Playlists Personales:** Los usuarios logueados pueden gestionar su lista de reproducción (agregar/eliminar canciones)
-- **Diseño Responsive:** Interfaz moderna, adaptada a dispositivos móviles
+- [cite_start]**Exploración de Catálogo:** Buscador dinámico por nombre de canción o artista[cite: 26].
+- [cite_start]**Reproducción Sincronizada:** Reproductor fijo que permite visualizar la información de la canción actual[cite: 27].
+- [cite_start]**Playlists Personales:** Los usuarios logueados pueden gestionar su lista de reproducción (agregar/eliminar canciones)[cite: 30].
+- [cite_start]**Diseño Responsive:** Interfaz moderna inspirada en Spotify, adaptada a dispositivos móviles[cite: 22].
 
 ### 🛠️ Perfil Administrador
-- **Panel CRUD:** Interfaz completa para crear, leer, editar y eliminar canciones del catálogo
-- **Gestión de Usuarios:** Visualización y control de cuentas registradas
-- **Rutas Protegidas:** Sistema de seguridad que impide el acceso no autorizado al panel administrativo
+- [cite_start]**Panel CRUD:** Interfaz completa para crear, leer, editar y eliminar canciones del catálogo[cite: 32].
+- [cite_start]**Gestión de Usuarios:** Visualización y control de cuentas registradas[cite: 33].
+- [cite_start]**Rutas Protegidas:** Sistema de seguridad que impide el acceso no autorizado al panel administrativo[cite: 34].
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend:** React (Vite) 
-- **Enrutamiento:** React Router DOM 
+- [cite_start]**Frontend:** React (Vite) [cite: 11]
+- [cite_start]**Enrutamiento:** React Router DOM [cite: 15]
 - **Estilos:** Bootstrap 5
 - **Iconografía:** React Icons
-- **Persistencia de Datos:** LocalStorage & SessionStorage 
+- [cite_start]**Persistencia de Datos:** LocalStorage & SessionStorage [cite: 13, 14]
 
 ---
 
