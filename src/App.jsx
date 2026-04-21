@@ -1,10 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router"
-import { useState } from 'react'
 
+import { useState } from 'react'
+import NavBar from "./componets/NavBar"
 function App() {
   
   return (
     <>
+      <NavBar/>
     </>
   )
 }
