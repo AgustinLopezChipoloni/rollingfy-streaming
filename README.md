@@ -14,7 +14,7 @@
 - **Exploración de Catálogo:** Buscador dinámico por nombre de canción o artista
 - **Reproducción Sincronizada:** Reproductor fijo que permite visualizar la información de la canción actual
 - **Playlists Personales:** Los usuarios logueados pueden gestionar su lista de reproducción (agregar/eliminar canciones)
-- **Diseño Responsive:** Interfaz moderna inspirada en Spotify, adaptada a dispositivos móviles
+- **Diseño Responsive:** Interfaz moderna, adaptada a dispositivos móviles
 
 ### 🛠️ Perfil Administrador
 - **Panel CRUD:** Interfaz completa para crear, leer, editar y eliminar canciones del catálogo
