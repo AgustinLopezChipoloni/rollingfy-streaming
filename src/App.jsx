@@ -5,6 +5,8 @@ import Login from "./pages/Login"
 import Registro from "./pages/Registro"
 import Home from './pages/Home';
 import DetalleCancion from "./pages/DetalleCancion";
+import Footer from './componets/Footer';
+
 function App() {
   
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/detalle/:id" element={<DetalleCancion />} />
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
