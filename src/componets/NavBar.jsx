@@ -1,34 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaListUl, FaUserShield, FaSignInAlt } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
+import { FaHome, FaListUl, FaUserShield, FaSignInAlt, FaBars } from "react-icons/fa";
+import {Button, Container, Form, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 const NavBar = () => {
+
+  const rolUsuario = "usuario"
+
   return (
     <>
- <>
-  <nav className="navbar bg-dark">
-    <div className="container-fluid d-flex align-items-center">
-      <a className="navbar-brand d-flex align-items-center" href="#">
-        <img   src="./src/assets/Logos_azul_y_rojo.jpg" alt="Logo" width="50" height="50" className="me-2"/> RollingFy
-      </a>
-      <form className="d-flex mx-auto" role="search" style={{ width: "100%", maxWidth: "400px" }}>
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <div className="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
-  <div className="p-4">
-        <a className="nav-link" href="/login">Login</a>
-        <a className="nav-link" href="/register">Register</a>
-  </div>
-</div>
-     <div className="d-flex">
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  </div>
-      
-    </div>
-  </nav>
-</>
+  <Navbar className="bg-dark" data-bs-theme="dark" fixed="top">
+      <Container fluid>
+        <Navbar.Brand as={NavLink} to="/">RollingFy</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" className="border-0 px-0"/>
+        <Navbar.Collapse id="navbarScroll">
+          
+          <Form className="d-flex mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
+            <Form.Control
+              type="search"
+              placeholder="Buscar canción o artista..."
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Buscar</Button>
+          </Form>
+
+          <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
+            {rolUsuario === "invitado" && (
+              <NavDropdown title="Iniciar Sesión" id="navbarScrollingDropdown" align="end">  
+                <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/login">Login</NavDropdown.Item>
+              </NavDropdown>
+            )}
+
+            {(rolUsuario === "usuario" || rolUsuario === "admin") && (
+              <>
+              <NavDropdown title = "Sesion" id = "navbarScrollingDropdown" align="end">
+                <Nav.Link as={NavLink} to="/playlist">Mi Playlist</Nav.Link>
+                <Nav.Link as = {NavLink}to ="/home">Cerrar Sesion</Nav.Link>
+                {rolUsuario === "admin" && (
+                   <Nav.Link as={NavLink} to="/admin">Panel Admin</Nav.Link>
+                )}
+                </NavDropdown>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
     </>
   )
 }
