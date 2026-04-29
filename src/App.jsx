@@ -1,13 +1,11 @@
-
-import { useState } from 'react'
-import NavBar from "./componets/NavBar"
+import { useState } from "react";
+import NavBar from "./componets/NavBar";
 function App() {
-  
   return (
     <>
-      <NavBar/>
+      <NavBar />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
