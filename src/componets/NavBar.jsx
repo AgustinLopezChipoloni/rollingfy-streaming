@@ -4,11 +4,11 @@ import { FaHome, FaListUl, FaUserShield, FaSignInAlt, FaBars } from "react-icons
 import {Button, Container, Form, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 const NavBar = () => {
 
-  const rolUsuario = ""
+  const rolUsuario = "usuario"
 
   return (
     <>
-  <Navbar className="bg-dark" data-bs-theme="dark">
+  <Navbar className="bg-dark" data-bs-theme="dark" fixed="top">
       <Container fluid>
         <Navbar.Brand as={NavLink} to="/">RollingFy</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="border-0 px-0"/>
