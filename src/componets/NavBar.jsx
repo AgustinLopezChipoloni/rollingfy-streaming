@@ -10,9 +10,9 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar className="bg-dark" data-bs-theme="dark" fixed="top">
+      <Navbar className="bg-dark " data-bs-theme="dark"  >
         <Container fluid>
-          <img src={logoImagen} width="10%" className="mx-5" alt="Logo Rollingfy" />
+          <Nav.Link as={NavLink} to="/"><img src={logoImagen} width="20%" className="mx-5" alt="Logo Rollingfy" /></Nav.Link>
           {/* <Navbar.Brand as={NavLink} to="/">RollingFy</Navbar.Brand>*/}
           <Navbar.Toggle aria-controls="navbarScroll" className="border-0 px-0" />
           <Navbar.Collapse id="navbarScroll">

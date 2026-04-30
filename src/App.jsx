@@ -17,8 +17,8 @@ function App() {
         <Route path="/Registro" element={<Registro/>} />
         <Route path = "/" element = {<Home/>}/>
         <Route path="/detalle/:id" element={<DetalleCancion />} />
-
       </Routes>
+      
       <Footer/>
     </BrowserRouter>
   );
