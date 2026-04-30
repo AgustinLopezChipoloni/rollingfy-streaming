@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import "../index.css";
 
 const Login = () => {
-  const [mostrarPassword, setMostrarPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+   const [mostrarPassword, setMostrarPassword] = useState(false);
 
   return (
     <>
@@ -16,16 +23,25 @@ const Login = () => {
               <Card.Body>
                 <h1 className="text-center fw-bold mb-2">Iniciar sesion</h1>
                 <p className="text-center fw-bold mb-4">Accede a tu cuenta</p>
-                <Form>
+                <Form onSubmit={handleSubmit()}>
                   <Form.Group className="mb-4">
                     <Form.Label className="fw-bold">Email:</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="diego@gmail.com"
                       className="bg-dark text-light border-light input"
+                      {...register("email", {
+                        required: "El email es un campo obligatorio",
+                        pattern: {
+                          value:
+                            /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                          mesagge:
+                            "El email debe ser un correo valido por ejemplo: diegogimenez@gmail.com",
+                        },
+                      })}
                     />
                     <Form.Text className="fw-bold text-danger">
-                      mensaje de error
+                      {errors.email?.message}
                     </Form.Text>
                   </Form.Group>
                   <Form.Group className="mb-3 position-relative">
@@ -34,6 +50,15 @@ const Login = () => {
                       type={mostrarPassword ? "text" : "password"}
                       placeholder="Ingresa tu contraseña"
                       className="bg-dark text-light border-light pe-5 input"
+                      {...register("password", {
+                        required: "La contraseña es un campo obligatorio",
+                        pattern: {
+                          value:
+                            /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+                          mesagge:
+                            "La contraseña debe tener entre 8 y 16 carácteres, al menos una minúscula, al menos una mayúscula y al menos un carácter especial",
+                        },
+                      })}
                     />
                     <span
                       onClick={() => setMostrarPassword(!mostrarPassword)}
@@ -43,7 +68,7 @@ const Login = () => {
                     </span>
 
                     <Form.Text className="fw-bold text-danger">
-                      Mensaje de error
+                      {errors.password?.message}
                     </Form.Text>
                   </Form.Group>
 
