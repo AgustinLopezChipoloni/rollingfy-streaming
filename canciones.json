@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "titulo": "Canción Tendencia 1",
+    "url": "https://open.spotify.com/embed/track/4AL4EamHEBKPpdcFRkYdXN?utm_source=generator",
+    "genero": "Pop"
+  },
+  {
+    "id": 2,
+    "titulo": "Canción Tendencia 2",
+    "url": "https://open.spotify.com/embed/track/0N361WhEqVunVl5ZBkfd70?utm_source=generator",
+    "genero": "Rock"
+
+  },
+  {
+    "id": 3,
+    "titulo": "Canción Tendencia 3",
+    "url":"https://open.spotify.com/embed/track/1dHbcmMm9bov1q4lG7Q4nQ?utm_source=generator",
+    "genero": "Rock"
+  },
+  {
+    "id": 4,
+    "titulo": "Canción Tendencia 4",
+    "url":"https://open.spotify.com/embed/track/4N01NxyzZzsfWhvqskiZ00?utm_source=generator",
+    "genero": "Rock"
+
+  },
+  {
+    "id": 5,
+    "titulo": "Canción Tendencia 4",
+    "url":"https://open.spotify.com/embed/track/2sFrGIn8FiuGFmCRnzLGTb?utm_source=generator",
+    "genero": "Rock"
+
+  }
+]
