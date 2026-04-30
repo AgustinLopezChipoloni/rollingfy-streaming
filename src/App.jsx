@@ -11,10 +11,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route
-          path="/Login"
-          element={<Login setUsuarioLogueado={setUsuarioLogueado} />}
-        />
+        <Route path="/Login" element={<Login />} />
         <Route path="/Registro" element={<Registro />} />
         <Route path="/" element={<Home />} />
         <Route path="/detalle/:id" element={<DetalleCancion />} />

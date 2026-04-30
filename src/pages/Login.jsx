@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import "../index.css";
 
 const Login = () => {
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+
   return (
     <>
       <Container fluid>
@@ -16,7 +22,7 @@ const Login = () => {
                     <Form.Control
                       type="email"
                       placeholder="diego@gmail.com"
-                      className="bg-dark text-light border-light"
+                      className="bg-dark text-light border-light input"
                     />
                     <Form.Text className="fw-bold text-danger">
                       mensaje de error
@@ -25,9 +31,16 @@ const Login = () => {
                   <Form.Group className="mb-3 position-relative">
                     <Form.Label className="fw-bold">Contraseña:</Form.Label>
                     <Form.Control
+                      type={mostrarPassword ? "text" : "password"}
                       placeholder="Ingresa tu contraseña"
-                      className="bg-dark text-light border-light pe-5"
+                      className="bg-dark text-light border-light pe-5 input"
                     />
+                    <span
+                      onClick={() => setMostrarPassword(!mostrarPassword)}
+                      className="btnMusic"
+                    >
+                      {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
 
                     <Form.Text className="fw-bold text-danger">
                       Mensaje de error
@@ -44,7 +57,7 @@ const Login = () => {
                   <p className="text-center fw-bold mt-3">o</p>
 
                   <Button className="w-100 mt-2 bg-dark border-light d-flex align-items-center justify-content-center gap-2 fw-bold">
-                    <FcGoogle size={20} /> Continuar con Google
+                    <FcGoogle className="btnGoogle" /> Continuar con Google
                   </Button>
                 </Form>
               </Card.Body>
