@@ -1,16 +1,43 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
 import "../index.css";
 
-const Login = () => {
+const Login = ({ setUsuarioLogueado }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navegacion = useNavigate();
+
+  const onSubmit = (datos) => {
+    console.log(datos);
+    if (
+      datos.email.trim() === import.meta.env.VITE_API_EMAIL &&
+      datos.password.trim() === import.meta.env.VITE_API_PASSWORD
+    ) {
+      console.log("Aqui logueo al usuario");
+      setUsuarioLogueado(true);
+      Swal.fire({
+        title: "Bienvenido administrador",
+        text: "Iniciaste sesion correctamente",
+        icon: "success",
+      });
+      navegacion("/Admin");
+    } else {
+      Swal.fire({
+        title: "Ocurrio un error",
+        text: "Credenciales incorrectas",
+        icon: "error",
+      });
+    }
+  };
 
   const [mostrarPassword, setMostrarPassword] = useState(false);
 
@@ -23,7 +50,7 @@ const Login = () => {
               <Card.Body>
                 <h1 className="text-center fw-bold mb-2">Iniciar sesion</h1>
                 <p className="text-center fw-bold mb-4">Accede a tu cuenta</p>
-                <Form onSubmit={handleSubmit()}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                   <Form.Group className="mb-4">
                     <Form.Label className="fw-bold">Email:</Form.Label>
                     <Form.Control

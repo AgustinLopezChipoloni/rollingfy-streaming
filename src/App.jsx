@@ -7,11 +7,21 @@ import Home from "./pages/Home";
 import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
 function App() {
+  const sesionUsuario = JSON.parse(localStorage.getItem("usuarioKey")) || false;
+  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);
+
+  useEffect(() => {
+    localStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
+  }, [usuarioLogueado]);
+
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar
+        usuarioLogueado={usuarioLogueado}
+        setUsuarioLogueado={setUsuarioLogueado}
+      />
       <Routes>
-        <Route path="/Login" element={<Login />} />
+        <Route path="/Login" element={<Login setUsuarioLogueado={setUsuarioLogueado} />} />
         <Route path="/Registro" element={<Registro />} />
         <Route path="/" element={<Home />} />
         <Route path="/detalle/:id" element={<DetalleCancion />} />
@@ -22,3 +32,4 @@ function App() {
 }
 
 export default App;
+
