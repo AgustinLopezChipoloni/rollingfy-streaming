@@ -16,5 +16,14 @@ const Registro = () => {
 
   const navegacion = useNavigate();
 
+   const onSubmit = (datos) => {
+    if (datos.password !== datos.confirmarPassword) {
+      return Swal.fire({
+        title: "Error",
+        text: "Las contraseñas no coinciden",
+        icon: "error",
+      });
+    }
+
 
 }
