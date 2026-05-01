@@ -12,7 +12,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-   const [mostrarPassword, setMostrarPassword] = useState(false);
+  const [mostrarPassword, setMostrarPassword] = useState(false);
 
   return (
     <>
@@ -35,7 +35,7 @@ const Login = () => {
                         pattern: {
                           value:
                             /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
-                          mesagge:
+                          message:
                             "El email debe ser un correo valido por ejemplo: diegogimenez@gmail.com",
                         },
                       })}
@@ -55,7 +55,7 @@ const Login = () => {
                         pattern: {
                           value:
                             /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
-                          mesagge:
+                          message:
                             "La contraseña debe tener entre 8 y 16 carácteres, al menos una minúscula, al menos una mayúscula y al menos un carácter especial",
                         },
                       })}
