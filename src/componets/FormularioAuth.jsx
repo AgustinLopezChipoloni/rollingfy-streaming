@@ -46,6 +46,9 @@ const Registro = () => {
       text: respuesta.mensaje || "No se pudo crear la cuenta",
       icon: "error",
     });
-  }
+    }
 
 };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+}
