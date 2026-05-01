@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { guardarUsuario } from "../helpers/LocalStorage";
-import "../App.css";
+import "../index.css";
 
 const Registro = () => {
 
