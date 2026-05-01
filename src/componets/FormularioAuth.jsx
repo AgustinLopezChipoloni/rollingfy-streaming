@@ -24,6 +24,12 @@ const Registro = () => {
         icon: "error",
       });
     }
-
+        const usuarioNuevo = {
+      nombreUsuario: datos.nombreUsuario,
+      email: datos.correo.toLowerCase().trim(),
+      password: datos.password,
+      rol: 'usuario',
+    };
+    const respuesta = guardarUsuario(usuarioNuevo);
 
 }
