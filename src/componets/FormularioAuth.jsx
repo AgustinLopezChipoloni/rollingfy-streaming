@@ -6,3 +6,15 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { guardarUsuario } from "../helpers/LocalStorage";
 import "../App.css";
+
+const Registro = () => { 
+    const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const navegacion = useNavigate();
+
+
+}
