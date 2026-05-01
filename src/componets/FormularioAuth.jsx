@@ -32,4 +32,20 @@ const Registro = () => {
     };
     const respuesta = guardarUsuario(usuarioNuevo);
 
-}
+        if (respuesta.exito) {
+      Swal.fire({
+        title: "¡Bienvenido!",
+        text: "Tu cuenta ha sido creada correctamente",
+        icon: "success",
+      });
+      navegacion("/login");
+    }
+    else {
+    Swal.fire({
+      title: "Error",
+      text: respuesta.mensaje || "No se pudo crear la cuenta",
+      icon: "error",
+    });
+  }
+
+};
