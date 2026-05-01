@@ -74,8 +74,85 @@ const Registro = () => {
                 {errors.nombreUsuario?.message}
               </Form.Text>
             </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Ej: milagros@gmail.com"
+                className="bg-transparent text-white border-secondary"
+                {...register("correo", {
+                  required: "El mail es un dato obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Debe ser un correo válido"
+                  }
+                })}
+              />
+              <Form.Text className="text-danger">
+                {errors.correo?.message}
+              </Form.Text>
+            </Form.Group>
 
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Contraseña:</Form.Label>
+              <div className="position-relative">
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingresa una contraseña"
+                  className="bg-transparent text-white border-secondary pe-5"
+                  {...register("password", {
+                    required: "La contraseña es obligatoria",
+                    pattern: {
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+                      message: "Mínimo 8 caracteres, una mayúscula, un número y un carácter especial"
+                    }
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="password-toggle"
+                >
+                  {showPassword ? <IoEyeOutline/> : <IoEyeOffOutline/>}
+                </button>
+              </div>
+              <Form.Text className="text-danger">
+                {errors.password?.message}
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-4">
+              <Form.Label>Confirmar contraseña:</Form.Label>
+              <div className="position-relative">
+                <Form.Control
+                  type={showConfirm ? "text" : "password"}
+                  placeholder="Repite tu contraseña"
+                  className="bg-transparent text-white border-secondary pe-5"
+                  {...register("confirmarPassword", {
+                    required: "Debes confirmar la contraseña"
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                  className="password-toggle"
+                >
+                  {showConfirm ? <IoEyeOutline/> : <IoEyeOffOutline/>}
+                  </button>
+              </div>
+              <Form.Text className="text-danger">
+                {errors.confirmarPassword?.message}
+              </Form.Text>
+            </Form.Group>
+
+            <Button variant="outline-light" type="submit" className="w-100 py-2 mb-3">
+              Continuar
+            </Button>
+          </Form>
         </Card.Body>
       </Card>
     </section>
-}
+  );
+};
+
+export default Registro;
