@@ -51,4 +51,31 @@ const Registro = () => {
 };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+    <section className="container mainSection my-5 d-flex justify-content-center">
+      <Card className="p-4 card-auth shadow-lg bg-dark text-white" style={{ width: '400px' }}>
+        <Card.Body>
+          <h2 className="text-center mb-2">Registro</h2>
+          <p className="text-center mb-4">Crea tu cuenta</p>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group className="mb-3" controlId="formNombreUsuario">
+              <Form.Label>Nombre de usuario:</Form.Label>
+              <Form.Control
+                type="text"
+                className="bg-transparent text-white border-secondary "
+                placeholder="Ej: Milagros"
+                
+                {...register("nombreUsuario", {
+                  required: "El nombre es obligatorio",
+                  minLength: { value: 3, message: "Mínimo 3 caracteres" }
+                })}
+              />
+              <Form.Text className="text-danger">
+                {errors.nombreUsuario?.message}
+              </Form.Text>
+            </Form.Group>
+
+        </Card.Body>
+      </Card>
+    </section>
 }
