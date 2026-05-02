@@ -23,8 +23,8 @@ const GrillaReproductores = () => {
     return () => window.removeEventListener("resize", revisarTamanioPantalla);
   }, []);
 
-// Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
-const servidor = window.location.hostname;
+  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
+  const servidor = window.location.hostname;
 
 
 
@@ -49,7 +49,7 @@ const servidor = window.location.hostname;
   const cancionesFiltradas = canciones.filter(cancion => {
     const coincideGenero = generoSeleccionado === 'Todos' || cancion.genero === generoSeleccionado;
     const textoBuscado = busqueda.toLowerCase();
-    
+
     const nombreSeguro = cancion.nombre ? cancion.nombre.toLowerCase() : "";
     const artistaSeguro = cancion.artista ? cancion.artista.toLowerCase() : "";
 
@@ -66,7 +66,7 @@ const servidor = window.location.hostname;
     <Container className="mt-5 mb-5">
       <h2 className="text-light mb-4 text-center">Explora nuestra música</h2>
 
-    
+
       <div className="d-flex justify-content-center gap-3 mb-5">
         <Button
           variant={generoSeleccionado === 'Todos' ? 'success' : 'outline-success'}
@@ -94,34 +94,31 @@ const servidor = window.location.hostname;
         </Button>
       </div>
 
-     
+
       <Row className="g-3">
         {cancionesFiltradas.map((cancion) => (
-       
+
           <Col xs={12} sm={6} md={4} lg={3} key={cancion.id} className="mb-3">
             <div className="h-100 d-flex flex-column">
               <iframe
                 style={{ borderRadius: "12px" }}
                 src={cancion.url}
                 width="100%"
-                height="80" 
+                height="80"
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 title={cancion.nombre}
               ></iframe>
-              <Link 
-                to={`/detalle/${cancion.id}/${cancion.nombre.replaceAll(" ", "-")}/${cancion.artista.replaceAll(" ", "-")}`} 
-                className="text-decoration-none"
-              >
-                <Button variant='outline-light' size="sm" className='w-80 rounded-pill fw-bold mt-2'>
+                <Link to={`/detalle/${cancion.id}`} className="text-decoration-none">
+                <Button variant='' size="sm" className='w-100 rounded-pill btn btn-outline-success fw-bold'>
                   Ver Detalle
                 </Button>
               </Link>
             </div>
           </Col>
-           
+
         ))}
       </Row>
 
