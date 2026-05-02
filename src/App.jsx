@@ -1,7 +1,4 @@
-import { useState } from "react";
-import NavBar from "./componets/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import NavBar from "./componets/NavBar";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
@@ -17,12 +14,11 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Registro" element={<Registro />} />
         <Route path="/" element={<Home />} />
-        <Route path="/detalle/:id" element={<DetalleCancion />} />
+        <Route path="/detalle/:id/:nombre/:artista" element={<DetalleCancion />} />
       </Routes>
-      
-      <Footer/>
+
+      <Footer />
     </BrowserRouter>
   );
 }
-
 export default App;

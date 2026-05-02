@@ -65,9 +65,12 @@ const GrillaReproductores = () => {
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
-                title={cancion.titulo}
+                title={cancion.nombre}
               ></iframe>
-              <Link as={Link} to="https:google.com">
+              <Link 
+                to={`/detalle/${cancion.id}/${cancion.nombre.replaceAll(" ", "-")}/${cancion.artista.replaceAll(" ", "-")}`} 
+                className="text-decoration-none"
+              >
                 <Button variant='outline-light' size="sm" className='w-100 rounded-pill fw-bold'>
                   Ver Detalle
                 </Button>
