@@ -1,8 +1,7 @@
 import { useState } from "react";
 import NavBar from "./componets/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import NavBar from "./componets/NavBar";
+import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 import Home from "./pages/Home";
@@ -11,6 +10,7 @@ import Footer from './componets/Footer';
 
 function App() {
   return (
+      <AuthProvider>
     <BrowserRouter>
       <NavBar />
       <Routes>
@@ -19,9 +19,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/detalle/:id" element={<DetalleCancion />} />
       </Routes>
-      
       <Footer/>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
