@@ -4,12 +4,12 @@ import logoImagen from "../assets/Logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-5 mt-5">
-      <Container>
-        <Row className="gy-4">
-          <Col xs={12} md={4} className="text-center text-md-start">
+    <footer className="bg-dark text-light  mt-4">
+      <Container >
+        <Row className="gy-4 pt-3">
+          <Col xs={12} md={4} className="text-center text-md-start  ">
             <img src={logoImagen} width="40%" alt="Logo Rollingfy" />
-            <p className="text-secondary">
+            <p className="text-secondary mt-3">
               Música y codigo en un solo lugar.
             </p>
             <div className="fs-4">
@@ -19,8 +19,7 @@ const Footer = () => {
             </div>
           </Col>
 
-          {/* Columna 2: Enlaces Rápidos */}
-          <Col xs={12} md={4} className="">
+          <Col xs={12} md={4} className="text-center">
             <h5>Navegación</h5>
             <ul className="list-unstyled mt-3">
               <li className="text-decoration-none text-secondary" >Inicio</li>
@@ -29,7 +28,6 @@ const Footer = () => {
               </ul>
           </Col>
 
-          {/* Columna 3: Dirección y Mapa */}
           <Col xs={12} md={4} className="text-center text-md-end">
             <h5>Encontranos en</h5>
             <p className="text-secondary mt-3">

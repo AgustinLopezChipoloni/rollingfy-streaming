@@ -12,8 +12,13 @@ const NavBar = () => {
     <>
       <Navbar className="bg-dark " data-bs-theme="dark"  >
         <Container fluid>
-          <Nav.Link as={NavLink} to="/"><img src={logoImagen} width="20%" className="mx-5" alt="Logo Rollingfy" /></Nav.Link>
-          {/* <Navbar.Brand as={NavLink} to="/">RollingFy</Navbar.Brand>*/}
+          <Navbar.Brand as={NavLink} to="/" className="ms-1 ms-md-5">
+            <img
+              src={logoImagen}
+              alt="Logo Rollingfy"
+              style={{ maxHeight: "40px", width: "auto" }}
+            />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" className="border-0 px-0" />
           <Navbar.Collapse id="navbarScroll">
 
@@ -35,6 +40,8 @@ const NavBar = () => {
                   <NavDropdown.Item as={NavLink} to="/login">Login</NavDropdown.Item>
                 </NavDropdown>
               )}
+
+              <Nav.Link as={NavLink} to="/admin">Administrador</Nav.Link>
 
               {(rolUsuario === "usuario" || rolUsuario === "admin") && (
                 <>
