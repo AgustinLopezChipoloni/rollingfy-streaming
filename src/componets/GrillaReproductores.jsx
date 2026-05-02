@@ -71,7 +71,7 @@ const GrillaReproductores = () => {
                 to={`/detalle/${cancion.id}/${cancion.nombre.replaceAll(" ", "-")}/${cancion.artista.replaceAll(" ", "-")}`} 
                 className="text-decoration-none"
               >
-                <Button variant='outline-light' size="sm" className='w-100 rounded-pill fw-bold'>
+                <Button variant='outline-light' size="sm" className='w-80 rounded-pill fw-bold mt-2'>
                   Ver Detalle
                 </Button>
               </Link>
