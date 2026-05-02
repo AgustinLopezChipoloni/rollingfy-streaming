@@ -56,9 +56,6 @@ const DetalleCancion = () => {
                   <strong>Canción:</strong> {cancion.nombre}
                 </p>
                 <p>
-                  <strong>Artista:</strong> {cancion.artista}
-                </p>
-                <p>
                   <strong>Álbum:</strong> {cancion.album}
                 </p>
                 <p>
