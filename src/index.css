@@ -1,0 +1,14 @@
+.btnMusic {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
+}
+
+.btnGoogle {
+  size: 20px;
+}
+
+.input:focus {
+  box-shadow: none;
+}

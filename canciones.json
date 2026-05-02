@@ -12,7 +12,7 @@
     },
     {
       "id": "2",
-      "nombre": "El Fantasma ",
+      "nombre": "El Fantasma",
       "artista": "Árbol",
       "album": "Guau!",
       "genero": "Rock",
@@ -33,7 +33,7 @@
     {
       "id": "4",
       "nombre": "Dolores Lindos",
-      "artista": " Arquero & Sebastián Teysera",
+      "artista": "Arquero & Sebastián Teysera",
       "album": "Dolores Lindos",
       "genero": "Trap",
       "anio": 2023,
@@ -41,44 +41,34 @@
       "url": "https://open.spotify.com/embed/track/4N01NxyzZzsfWhvqskiZ00?utm_source=generator"
     },
     {
-      "artista": "Aiki",
-      "url": "https://open.spotify.com/embed/track/3jjCwnmjZqQQIomcC1PSUd?utm_source=generator",
-      "imagen": "https://i.scdn.co/image/ab67616d0000b27312267561806dc28464b0816e",
-      "genero": "Trap",
+      "id": "5",
       "nombre": "Manchild",
+      "artista": "Aiki",
       "album": "Manchild",
-      "anio": "2025",
-      "id": "krH27jcXqh0"
+      "genero": "Trap",
+      "anio": 2025,
+      "imagen": "https://i.scdn.co/image/ab67616d0000b27312267561806dc28464b0816e",
+      "url": "https://open.spotify.com/embed/track/3jjCwnmjZqQQIomcC1PSUd?utm_source=generator"
     },
     {
+      "id": "6",
+      "nombre": "Save Me Love",
       "artista": "Kygo",
-      "url": "https://open.spotify.com/embed/track/5ObyGDxNWH0Uuuk3NvC5r8?utm_source=generator",
-      "imagen": "https://i.scdn.co/image/ab67616d0000b273124a6d221e2a68ee6ac2b020",
-      "genero": "Pop",
-      "nombre": "Save me love",
       "album": "Save me love",
-      "anio": "2025",
-      "id": "krH27jcXqhs0"
+      "genero": "Pop",
+      "anio": 2025,
+      "imagen": "https://i.scdn.co/image/ab67616d0000b273124a6d221e2a68ee6ac2b020",
+      "url": "https://open.spotify.com/embed/track/5ObyGDxNWH0Uuuk3NvC5r8?utm_source=generator"
     },
     {
-      "nombre": "La morocha",
-      "artista": "Luck Ra",
-      "album": "BM",
-      "anio": "2025",
-      "url": "https://open.spotify.com/embed/track/6vRQqxOhUFd78p5tL8jXr7?utm_source=generator",
-      "imagen": "https://i.scdn.co/image/ab67616d0000b273db091e5bdcd06ef5b252366d",
-      "genero": "Cumbia",
-      "id": "ipHt-UKCvck"
-    },
-    {
-      "nombre": "Fast car",
-      "artista": "Jonas blue",
+      "id": "8",
+      "nombre": "Fast Car",
+      "artista": "Jonas Blue",
       "album": "Dakota",
-      "anio": "2025",
-      "url": "https://open.spotify.com/embed/track/1SN1vSPsr4V4tIUTR3s8YW?utm_source=generator",
-      "imagen": "https://i.scdn.co/image/ab67616d0000b2735b6bcc59c3562a6f362344c6",
       "genero": "Electronica",
-      "id": "YhJILtSm6DA"
+      "anio": 2025,
+      "imagen": "https://i.scdn.co/image/ab67616d0000b2735b6bcc59c3562a6f362344c6",
+      "url": "https://open.spotify.com/embed/track/1SN1vSPsr4V4tIUTR3s8YW?utm_source=generator"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

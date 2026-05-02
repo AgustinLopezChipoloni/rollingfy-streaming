@@ -121,7 +121,7 @@ const Admin = () => {
                 </td>
                 <td>
                   {/* BOTÓN EDITAR: Ahora es un Link que te redirige a la ruta de edición */}
-                  <Link to={`/admin/editar/${cancion.id}`} className="btn btn-success g me-2" title="Editar">
+                  <Link to={`/admin/editar/${cancion.id}`} className="btn btn-success me-2" title="Editar">
                     <i className="bi bi-pencil-square"></i>
                   </Link>
 

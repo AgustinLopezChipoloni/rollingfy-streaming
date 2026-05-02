@@ -1,13 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router"; 
+import { Link } from "react-router-dom"; 
 import logoImagen from "../assets/Logo.png"; 
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light  mt-4">
-      <Container >
-        <Row className="gy-4 pt-3">
-          <Col xs={12} md={4} className="text-center text-md-start  ">
+    <footer className="bg-dark text-light py-5">
+      <Container>
+        <Row className="gy-4">
+          <Col xs={12} md={4} className="text-center text-md-start">
             <img src={logoImagen} width="40%" alt="Logo Rollingfy" />
             <p className="text-secondary mt-3">
               Música y codigo en un solo lugar.
