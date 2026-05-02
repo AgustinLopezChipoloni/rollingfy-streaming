@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavBar from "./componets/NavBar";
+import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 import Home from "./pages/Home";
@@ -15,6 +16,7 @@ function App() {
   }, [usuarioLogueado]);
 
   return (
+      <AuthProvider>
     <BrowserRouter>
       <NavBar
         usuarioLogueado={usuarioLogueado}
@@ -27,7 +29,9 @@ function App() {
         <Route path="/detalle/:id" element={<DetalleCancion />} />
         <Route path="/Admin" element={<Admin />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
