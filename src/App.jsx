@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./componets/NavBar";
 import { AuthProvider } from "./context/AuthContext";
@@ -7,7 +6,7 @@ import Registro from "./pages/Registro";
 import Home from "./pages/Home";
 import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
-import Footer from "./componets/Footer";
+import Footer from "./componets/Footer"
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import { useState, useEffect, useContext } from "react";
 
