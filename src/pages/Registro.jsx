@@ -1,4 +1,4 @@
-import FormularioAuth from "../components/FormularioAuth";
+import FormularioAuth from "../componets/FormularioAuth";
 
 const Registro = () => {
   return (

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
 import Footer from "./componets/Footer"
+
 import { useState, useEffect, useContext } from "react";
 
 function App() {
