@@ -7,14 +7,13 @@ const GrillaReproductores = () => {
   const [generoSeleccionado, setGeneroSeleccionado] = useState('Todos');
   const [busqueda, setBusqueda] = useState('');
 
-  // 1. Estado para detectar si es celular (esto queda igual, está perfecto)
+
   const [esCelular, setEsCelular] = useState(window.innerWidth < 768);
 
-  // 2. UN SOLO estado para la cantidad visible. 
-  // Evaluamos el ancho de la pantalla al inicio para decidir si arranca en 2 o en 8.
+  
   const [cantidadVisible, setCantidadVisible] = useState(window.innerWidth < 768 ? 2 : 8);
 
-  // 3. Efecto para escuchar si el usuario agranda o achica la ventana
+  
   useEffect(() => {
     const revisarTamanioPantalla = () => {
       setEsCelular(window.innerWidth < 768);
@@ -23,12 +22,12 @@ const GrillaReproductores = () => {
     return () => window.removeEventListener("resize", revisarTamanioPantalla);
   }, []);
 
-  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
+  
   const servidor = window.location.hostname;
 
 
 
-  // 4. Efecto para traer los datos
+  
   useEffect(() => {
     fetch(`http://${servidor}:3001/canciones`)
       .then(respuesta => respuesta.json())
@@ -36,16 +35,16 @@ const GrillaReproductores = () => {
       .catch(error => console.error("Error cargando canciones:", error));
   }, []);
 
-  // 5. Función de sumar inteligente
+  
   const mostrarMasCanciones = () => {
     if (esCelular) {
-      setCantidadVisible(cantidadVisible + 2); // Si es celular, suma 2
+      setCantidadVisible(cantidadVisible + 2); 
     } else {
-      setCantidadVisible(cantidadVisible + 8); // Si es PC, suma 10
+      setCantidadVisible(cantidadVisible + 8); 
     }
   };
 
-  // LÓGICA DE FILTRADO
+  
   const cancionesFiltradas = canciones.filter(cancion => {
     const coincideGenero = generoSeleccionado === 'Todos' || cancion.genero === generoSeleccionado;
     const textoBuscado = busqueda.toLowerCase();
@@ -58,8 +57,7 @@ const GrillaReproductores = () => {
     return coincideGenero && coincideTexto;
   });
 
-  // 6. El .slice() ahora es universal. 
-  // No importa si es PC o celular, siempre corta a la 'cantidadVisible' actual.
+
   const cancionesAMostrar = cancionesFiltradas.slice(0, cantidadVisible);
 
   return (
