@@ -1,36 +1,63 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaListUl, FaUserShield, FaSignInAlt } from "react-icons/fa";
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { FaBars } from 'react-icons/fa';
+import { AuthContext } from '../context/AuthContext'; 
+
 const NavBar = () => {
+
+  const { usuarioLogueado, logout } = useContext(AuthContext);
+
   return (
-    <>
- <>
-  <nav className="navbar bg-dark">
-    <div className="container-fluid d-flex align-items-center">
-      <a className="navbar-brand d-flex align-items-center" href="#">
-        <img   src="./src/assets/Logos_azul_y_rojo.jpg" alt="Logo" width="50" height="50" className="me-2"/> RollingFy
-      </a>
-      <form className="d-flex mx-auto" role="search" style={{ width: "100%", maxWidth: "400px" }}>
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <div className="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
-  <div className="p-4">
-        <a className="nav-link" href="/login">Login</a>
-        <a className="nav-link" href="/register">Register</a>
-  </div>
-</div>
-     <div className="d-flex">
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  </div>
-      
-    </div>
-  </nav>
-</>
-    </>
-  )
+    <Navbar expand="lg" className="bg-dark" data-bs-theme="dark">
+      <Container fluid>
+        <Navbar.Brand as={NavLink} to="/">Rollingfy</Navbar.Brand>
+        
+        <Navbar.Toggle aria-controls="navbarScroll" className="border-0 px-0">
+           <FaBars color="white" size={24} />
+        </Navbar.Toggle>
+
+        <Navbar.Collapse id="navbarScroll">
+          <Form className="d-flex mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
+            <Form.Control type="search" placeholder="Buscar..." className="me-2" />
+            <Button variant="outline-success">Buscar</Button>
+          </Form>
+
+          <Nav className="ms-auto my-2 my-lg-0">
+            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
+
+          
+            {!usuarioLogueado ? (
+              <NavDropdown title="Iniciar Sesión" id="navbarScrollingDropdown" align="end" menuVariant="dark">  
+                <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/login">Login</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+          
+              <>
+                <Nav.Link as={NavLink} to="/playlist">Mi Playlist</Nav.Link>
+                
+
+                {usuarioLogueado.rol === 'admin' && (
+                  <Nav.Link as={NavLink} to="/admin" className="text-warning">Panel Admin</Nav.Link>
+                )}
+
+                <NavDropdown 
+                  title={`Hola, ${usuarioLogueado.nombre}`} 
+                  id="navbar-user-dropdown" 
+                  align="end" 
+                  menuVariant="dark"
+                >  
+                  <NavDropdown.Item onClick={logout}>Cerrar Sesión</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            )}
+
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 }
 
-export default NavBar
+export default NavBar;
