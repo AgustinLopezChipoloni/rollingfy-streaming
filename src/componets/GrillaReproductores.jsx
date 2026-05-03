@@ -111,11 +111,15 @@ const GrillaReproductores = () => {
                 loading="lazy"
                 title={cancion.nombre}
               ></iframe>
-                <Link to={`/detalle/${cancion.id}`} className="text-decoration-none">
-                <Button variant='' size="sm" className='w-100 rounded-pill btn btn-outline-success fw-bold'>
-                  Ver Detalle
-                </Button>
-              </Link>
+          <Button 
+          as={Link} 
+          to={`/detalle/${cancion.id}`} 
+          variant="outline-success" 
+          size="sm"
+          className="text-decoration-none w-30 rounded-pill fw-bold mt-2 align-self-start" 
+        >
+          Ver Detalle
+        </Button>
             </div>
           </Col>
 
