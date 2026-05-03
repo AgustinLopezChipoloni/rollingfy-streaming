@@ -1,11 +1,11 @@
-import React from 'react'
+import FormularioAuth from "../components/FormularioAuth";
 
 const Registro = () => {
   return (
-    <>
-      <h1>HOLA REGISTRO</h1>
-    </>
-  )
-}
+    <div className="container d-flex justify-content-center mt-5">
+      <FormularioAuth />
+    </div>
+  );
+};
 
-export default Registro
+export default Registro;
