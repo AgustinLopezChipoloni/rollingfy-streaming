@@ -6,16 +6,16 @@ const DetalleCancion = () => {
   const { id } = useParams();
   const [cancion, setCancion] = useState(null);
 
+  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
+  const servidor = window.location.hostname;
+
   useEffect(() => {
-    fetch('/canciones.json')
+    fetch(`http://${servidor}:3001/canciones/${id}`)
       .then((respuesta) => respuesta.json())
       .then((datos) => {
-        const cancionEncontrada = datos.find(
-          (cancion) => cancion.id === Number(id)
-        );
-
-        setCancion(cancionEncontrada);
-      });
+        setCancion(datos);
+      })
+      .catch(error => console.error("Error cargando la canción:", error));
   }, [id]);
 
   return (
@@ -54,9 +54,6 @@ const DetalleCancion = () => {
                 </h4>
                 <p>
                   <strong>Canción:</strong> {cancion.nombre}
-                </p>
-                <p>
-                  <strong>Artista:</strong> {cancion.artista}
                 </p>
                 <p>
                   <strong>Álbum:</strong> {cancion.album}
