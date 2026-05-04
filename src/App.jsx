@@ -11,10 +11,20 @@ import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import { useState, useEffect, useContext } from "react";
 
 function App() {
+  const sesionUsuario = JSON.parse(localStorage.getItem("usuarioKey")) || false;
+  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);
+
+  useEffect(() => {
+    localStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
+  }, [usuarioLogueado]);
+
   return (
     <AuthProvider>
       <BrowserRouter>
-        <NavBar />
+        <NavBar
+          usuarioLogueado={usuarioLogueado}
+          setUsuarioLogueado={setUsuarioLogueado}
+        />
         <Routes>
           <Route
             path="/Login"
