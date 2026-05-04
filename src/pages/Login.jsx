@@ -29,7 +29,7 @@ const Login = ({ setUsuarioLogueado }) => {
         text: "Iniciaste sesion correctamente",
         icon: "success",
       });
-      navegacion("/Admin");
+      navegacion("/admin");
     } else {
       Swal.fire({
         title: "Ocurrio un error",
