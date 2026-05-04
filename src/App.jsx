@@ -21,15 +21,17 @@ function App() {
         setUsuarioLogueado={setUsuarioLogueado}
       />
       <Routes>
-        <Route path="/Login" element={<Login setUsuarioLogueado={setUsuarioLogueado} />} />
+        <Route
+          path="/Login"
+          element={<Login setUsuarioLogueado={setUsuarioLogueado} />}
+        />
         <Route path="/Registro" element={<Registro />} />
         <Route path="/" element={<Home />} />
         <Route path="/detalle/:id" element={<DetalleCancion />} />
-        <Route path="/Admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
