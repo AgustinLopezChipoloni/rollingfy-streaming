@@ -4,7 +4,7 @@ import logoImagen from "../assets/Logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-5 mt-5">
+    <footer className="bg-dark text-light py-5">
       <Container>
         <Row className="gy-4">
           <Col xs={12} md={4} className="text-center text-md-start">
