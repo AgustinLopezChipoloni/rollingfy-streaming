@@ -11,7 +11,7 @@ const NavBar = () => {
   const { usuarioLogueado, logout } = useContext(AuthContext);
 
   return (
-    <Navbar expand="lg" className="bg-dark" data-bs-theme="dark">
+    <Navbar sticky="top" expand="lg" className="bg-dark" data-bs-theme="dark">
       <Container fluid>
 
         <Navbar.Brand as={NavLink} to="/" className="ms-1 ms-md-5">

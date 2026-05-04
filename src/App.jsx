@@ -6,7 +6,7 @@ import Registro from "./pages/Registro";
 import Home from "./pages/Home";
 import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
-import Footer from "./componets/Footer";
+import Footer from "./componets/Footer"
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import { useState } from "react";
 
