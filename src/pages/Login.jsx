@@ -5,6 +5,7 @@ import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
+import { obtenerUsuarios } from "../helpers/LocalStorage";
 import "../index.css";
 
 const Login = ({ setUsuarioLogueado }) => {
@@ -15,14 +16,13 @@ const Login = ({ setUsuarioLogueado }) => {
   } = useForm();
 
   const navegacion = useNavigate();
+  const [mostrarPassword, setMostrarPassword] = useState(false);
 
   const onSubmit = (datos) => {
-    console.log(datos);
     if (
       datos.email.trim() === import.meta.env.VITE_API_EMAIL &&
       datos.password.trim() === import.meta.env.VITE_API_PASSWORD
     ) {
-      console.log("Aqui logueo al usuario");
       setUsuarioLogueado(true);
       Swal.fire({
         title: "Bienvenido administrador",
@@ -30,6 +30,24 @@ const Login = ({ setUsuarioLogueado }) => {
         icon: "success",
       });
       navegacion("/admin");
+      return;
+    }
+
+    const usuarios = obtenerUsuarios();
+    const usuarioEncontrado = usuarios.find(
+      (usuario) =>
+        usuario.email === datos.email.trim().toLowerCase() &&
+        usuario.password === datos.password.trim(),
+    );
+
+    if (usuarioEncontrado) {
+      setUsuarioLogueado(true);
+      Swal.fire({
+        title: `Bienvenido ${usuarioEncontrado.nombreUsuario}`,
+        text: "Iniciaste sesion correctamente",
+        icon: "success",
+      });
+      navegacion("/");
     } else {
       Swal.fire({
         title: "Ocurrio un error",
@@ -38,8 +56,6 @@ const Login = ({ setUsuarioLogueado }) => {
       });
     }
   };
-
-  const [mostrarPassword, setMostrarPassword] = useState(false);
 
   return (
     <>
