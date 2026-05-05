@@ -22,7 +22,7 @@ const CardCancion = ({cancion}) => {
               <Button variant='outline-light' size="sm" className='w-100 rounded-pill fw-bold'>
                 Ver Detalle
               </Button>
-            
+    
             </Link>
         
 
