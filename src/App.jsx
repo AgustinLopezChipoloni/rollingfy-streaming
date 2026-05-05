@@ -45,7 +45,7 @@ function App() {
             path="/admin/editar/:id"
             element={<FormularioCancion titulo="Editar Canción" />}
           />
-                  <Route path="/playlist" element={<Playlist />} />
+            <Route path="/playlist" element={<Playlist />} />
 
         </Routes>
         <Footer />
