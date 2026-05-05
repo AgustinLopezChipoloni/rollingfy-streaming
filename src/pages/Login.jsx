@@ -72,7 +72,7 @@ const Login = ({ setUsuarioLogueado }) => {
                     <Form.Control
                       type="email"
                       placeholder="diego@gmail.com"
-                      className="bg-dark text-light border-light input"
+                      className="form-control bg-dark text-light border-light"
                       {...register("email", {
                         required: "El email es un campo obligatorio",
                         pattern: {
@@ -92,7 +92,7 @@ const Login = ({ setUsuarioLogueado }) => {
                     <Form.Control
                       type={mostrarPassword ? "text" : "password"}
                       placeholder="Ingresa tu contraseña"
-                      className="bg-dark text-light border-light pe-5 input"
+                      className="form-control bg-dark text-light border-light pe-5"
                       {...register("password", {
                         required: "La contraseña es un campo obligatorio",
                         pattern: {
@@ -107,7 +107,11 @@ const Login = ({ setUsuarioLogueado }) => {
                       onClick={() => setMostrarPassword(!mostrarPassword)}
                       className="btnMusic"
                     >
-                      {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
+                      {mostrarPassword ? (
+                        <FaEyeSlash className="btnPassword" />
+                      ) : (
+                        <FaEye className="btnPassword" />
+                      )}
                     </span>
 
                     <Form.Text className="fw-bold text-danger">
