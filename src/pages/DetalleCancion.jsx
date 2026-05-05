@@ -5,8 +5,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 const DetalleCancion = () => {
   const { id } = useParams();
   const [cancion, setCancion] = useState(null);
-
-  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
+  
   const servidor = window.location.hostname;
 
   useEffect(() => {
