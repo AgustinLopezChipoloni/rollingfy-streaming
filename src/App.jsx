@@ -8,6 +8,8 @@ import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
 import Footer from "./componets/Footer";
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
+import Playlist from "./pages/Playlist";
+
 import { useState, useEffect, useContext } from "react";
 
 function App() {
@@ -32,7 +34,7 @@ function App() {
           />
           <Route path="/Registro" element={<Registro />} />
           <Route path="/" element={<Home />} />
-          <Route path="/detalle/:id" element={<DetalleCancion />} />
+          <Route path="/detalle/:id/:nombre/:artista" element={<DetalleCancion />} />
           <Route path="/admin" element={<Admin />} />
 
           <Route
@@ -43,6 +45,8 @@ function App() {
             path="/admin/editar/:id"
             element={<FormularioCancion titulo="Editar Canción" />}
           />
+                  <Route path="/playlist" element={<Playlist />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

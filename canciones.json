@@ -6,7 +6,7 @@
       "artista": "Amigo de Artistas, Tote, Lauta",
       "album": "Puñaladas",
       "genero": "Pop",
-      "anio": 2025,
+      "anio": "2026",
       "imagen": "https://i.scdn.co/image/ab67616d0000b273de0489bb178b9c1eebf1b4a1",
       "url": "https://open.spotify.com/embed/track/4AL4EamHEBKPpdcFRkYdXN?utm_source=generator"
     },
@@ -59,26 +59,6 @@
       "anio": 2025,
       "imagen": "https://i.scdn.co/image/ab67616d0000b273124a6d221e2a68ee6ac2b020",
       "url": "https://open.spotify.com/embed/track/5ObyGDxNWH0Uuuk3NvC5r8?utm_source=generator"
-    },
-    {
-      "id": "8",
-      "nombre": "Fast Car",
-      "artista": "Jonas Blue",
-      "album": "Dakota",
-      "genero": "Electronica",
-      "anio": 2025,
-      "imagen": "https://i.scdn.co/image/ab67616d0000b2735b6bcc59c3562a6f362344c6",
-      "url": "https://open.spotify.com/embed/track/1SN1vSPsr4V4tIUTR3s8YW?utm_source=generator"
-    },
-    {
-      "nombre": "A Sky Full Stars",
-      "artista": "Coldplay",
-      "album": "Ghost stories",
-      "anio": "2024",
-      "url": "https://open.spotify.com/embed/track/0FDzzruyVECATHXKHFs9eJ?utm_source=generator",
-      "imagen": "https://i.scdn.co/image/ab67616d00001e02e5a95573f1b91234630fd2cf",
-      "genero": "Electronica",
-      "id": "L72P1IHMnSc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
