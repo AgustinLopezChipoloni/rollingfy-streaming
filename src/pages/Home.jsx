@@ -16,7 +16,7 @@ const listaImagenes = Object.values(imagenesExtraidas).map((urlImagen, indice) =
   alt: `Slide ${indice + 1}`
 }));
 
-const Home = () => {
+const Home = ({ busqueda }) => {
   return (
     <>
       <div className='bg-black text-white min-vh-100 py-4'>
@@ -30,7 +30,7 @@ const Home = () => {
           )}
         </Container>
 
-        <GrillaReproductores />
+        <GrillaReproductores busqueda={busqueda} />
       </div >
     </>
   )

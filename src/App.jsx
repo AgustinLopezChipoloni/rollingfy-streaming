@@ -10,11 +10,13 @@ import Footer from "./componets/Footer";
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import Playlist from "./pages/PlayList";
 import RutaProtegida from "./componets/ProtectorAdmin";
+import AdminUsuarios from "./Pages/Adminusuarios";
 import { useState, useEffect } from "react";
 
 function App() {
   const sesionUsuario = JSON.parse(localStorage.getItem("usuarioKey")) || false;
-  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);
+  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);  
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
     localStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
@@ -26,6 +28,8 @@ function App() {
         <NavBar
           usuarioLogueado={usuarioLogueado}
           setUsuarioLogueado={setUsuarioLogueado}
+          busqueda={busqueda}
+          setBusqueda={setBusqueda}
         />
 
         <Routes>
@@ -36,7 +40,7 @@ function App() {
 
           <Route path="/Registro" element={<Registro />} />
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home busqueda={busqueda} />} />
 
           <Route
             path="/detalle/:id/:nombre/:artista"
@@ -53,6 +57,8 @@ function App() {
               </RutaProtegida>
             }
           />
+
+          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
 
           <Route
             path="/admin/crear"

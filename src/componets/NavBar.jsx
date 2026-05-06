@@ -2,15 +2,18 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
-
+import { useState, useEffect } from 'react';
 import logoImagen from "../assets/Logo.png";
 
-const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
+const NavBar = ({ usuarioLogueado, setUsuarioLogueado, busqueda, setBusqueda }) => {
+
 
   const logout = () => {
     localStorage.removeItem("usuarioKey");
     setUsuarioLogueado(false);
   };
+
+
 
   return (
     <Navbar sticky="top" expand="lg" className="bg-dark" data-bs-theme="dark">
@@ -29,8 +32,16 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
         </Navbar.Toggle>
 
         <Navbar.Collapse id="navbarScroll">
-          <Form className="d-flex mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
-            <Form.Control type="search" placeholder="Buscar..." className="me-2" />
+          <Form className="d-flex mx-auto" 
+            style={{ maxWidth: '400px', width: '100%' }}
+            onSubmit={(e) => e.preventDefault()}>
+            <Form.Control 
+              type="search" 
+              placeholder="Buscar..." 
+              className="me-2" 
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
             <Button variant="outline-success">Buscar</Button>
           </Form>
 
