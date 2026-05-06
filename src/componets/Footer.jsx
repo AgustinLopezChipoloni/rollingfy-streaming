@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router"; 
-import logoImagen from "../assets/Logo.png"; 
+import { Link } from "react-router-dom";
+import logoImagen from "../assets/Logo.png";
 
 const Footer = () => {
   return (
@@ -8,8 +8,9 @@ const Footer = () => {
       <Container>
         <Row className="gy-4">
           <Col xs={12} md={4} className="text-center text-md-start">
-            <img src={logoImagen} width="40%" alt="Logo Rollingfy" />
-            <p className="text-secondary">
+            <a href="/"><img src={logoImagen} width="40%" alt="Logo Rollingfy" />
+            </a>
+            <p className="text-secondary mt-3">
               Música y codigo en un solo lugar.
             </p>
             <div className="fs-4">
@@ -19,34 +20,32 @@ const Footer = () => {
             </div>
           </Col>
 
-          {/* Columna 2: Enlaces Rápidos */}
-          <Col xs={12} md={4} className="">
+          <Col xs={12} md={4} className="text-center">
             <h5>Navegación</h5>
             <ul className="list-unstyled mt-3">
               <li className="text-decoration-none text-secondary" >Inicio</li>
               <li className="text-decoration-none text-secondary" >Nosotros</li>
               <li className="text-decoration-none text-secondary" >Administrador</li>
-              </ul>
+            </ul>
           </Col>
 
-          {/* Columna 3: Dirección y Mapa */}
           <Col xs={12} md={4} className="text-center text-md-end">
             <h5>Encontranos en</h5>
             <p className="text-secondary mt-3">
               San Miguel de Tucumán, Argentina <br />
               <i className="bi bi-geo-alt-fill text-danger"></i> San Martín 123
             </p>
-            <a 
-              href="https://maps.app.goo.gl/DaBJ1czPzdkYvfVC8" 
-              target="_blank" 
-              rel="noreferrer" 
+            <a
+              href="https://maps.app.goo.gl/DaBJ1czPzdkYvfVC8"
+              target="_blank"
+              rel="noreferrer"
               className="btn btn-outline-success btn-sm"
             >
               Ver en Google Maps
             </a>
           </Col>
         </Row>
-        
+
         <hr className="mt-5 text-secondary" />
         <Row>
           <Col className="text-center text-secondary small">

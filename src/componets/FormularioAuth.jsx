@@ -32,6 +32,7 @@ const Registro = () => {
             password: datos.password,
             rol: 'usuario',
             activo: true,
+            playlist: []
         };
         const respuesta = guardarUsuario(usuarioNuevo);
 

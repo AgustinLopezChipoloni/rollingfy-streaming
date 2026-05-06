@@ -1,47 +1,133 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { cancionesIniciales } from '../helpers/DatosInicio';
 
 const GrillaReproductores = () => {
   const [canciones, setCanciones] = useState([]);
   const [generoSeleccionado, setGeneroSeleccionado] = useState('Todos');
+  const [busqueda, setBusqueda] = useState('');
 
+  const [esCelular, setEsCelular] = useState(window.innerWidth < 768);
+  const [cantidadVisible, setCantidadVisible] = useState(window.innerWidth < 768 ? 2 : 8);
 
   useEffect(() => {
-    fetch('/canciones.json')
-      .then(respuesta => respuesta.json())
-      .then(datos => setCanciones(datos))
-      .catch(error => console.error("Error:", error));
+    const revisarTamanioPantalla = () => {
+      setEsCelular(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", revisarTamanioPantalla);
+
+    return () => window.removeEventListener("resize", revisarTamanioPantalla);
   }, []);
 
-  const cancionesFiltradas = generoSeleccionado === 'Todos'
-    ? canciones
-    : canciones.filter(cancion => cancion.genero === generoSeleccionado);
+  useEffect(() => {
+    const cancionesGuardadas = JSON.parse(localStorage.getItem('canciones')) || [];
+
+    if (cancionesGuardadas.length === 0) {
+      localStorage.setItem('canciones', JSON.stringify(cancionesIniciales));
+      setCanciones(cancionesIniciales);
+    } else {
+      setCanciones(cancionesGuardadas);
+    }
+  }, []);
+
+  const mostrarMasCanciones = () => {
+    if (esCelular) {
+      setCantidadVisible(cantidadVisible + 2);
+    } else {
+      setCantidadVisible(cantidadVisible + 8);
+    }
+  };
+
+  const agregarAPlaylist = (cancion) => {
+   const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioKey'));
+
+    if (!usuarioLogueado) {
+      alert('Debes iniciar sesión para agregar canciones a tu playlist.');
+      return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    const usuariosActualizados = usuarios.map((usuario) => {
+      if (usuario.email === usuarioLogueado.email) {
+        const playlistActual = usuario.playlist || [];
+
+        const cancionRepetida = playlistActual.find(
+          (item) => item.id === cancion.id
+        );
+
+        if (cancionRepetida) {
+          alert('Esta canción ya está en tu playlist.');
+          return usuario;
+        }
+
+        return {
+          ...usuario,
+          playlist: [...playlistActual, cancion]
+        };
+      }
+
+      return usuario;
+    });
+
+    const usuarioActualizado = usuariosActualizados.find(
+      (usuario) => usuario.email === usuarioLogueado.email
+    );
+
+    localStorage.setItem('usuarios', JSON.stringify(usuariosActualizados));
+   localStorage.setItem('usuarioKey', JSON.stringify(usuarioActualizado));
+
+    alert('Canción agregada a My Playlist.');
+  };
+
+  const cancionesFiltradas = canciones.filter(cancion => {
+    const coincideGenero =
+      generoSeleccionado === 'Todos' || cancion.genero === generoSeleccionado;
+
+    const textoBuscado = busqueda.toLowerCase();
+
+    const nombreSeguro = cancion.nombre ? cancion.nombre.toLowerCase() : "";
+    const artistaSeguro = cancion.artista ? cancion.artista.toLowerCase() : "";
+
+    const coincideTexto =
+      nombreSeguro.includes(textoBuscado) ||
+      artistaSeguro.includes(textoBuscado);
+
+    return coincideGenero && coincideTexto;
+  });
+
+  const cancionesAMostrar = cancionesFiltradas.slice(0, cantidadVisible);
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-light mb-4 text-center">Explora por Género</h2>
+    <Container className="mt-5 mb-5">
+      <h2 className="text-light mb-4 text-center">
+        Explora nuestra música
+      </h2>
 
-    
-      <div className="d-flex justify-content-center gap-3 mb-5">
+      <div className="d-flex justify-content-center gap-3 mb-5 flex-wrap">
         <Button
           variant={generoSeleccionado === 'Todos' ? 'success' : 'outline-success'}
           onClick={() => setGeneroSeleccionado('Todos')}
         >
           Todos
         </Button>
+
         <Button
           variant={generoSeleccionado === 'Rock' ? 'success' : 'outline-success'}
           onClick={() => setGeneroSeleccionado('Rock')}
         >
           Rock
         </Button>
+
         <Button
           variant={generoSeleccionado === 'Pop' ? 'success' : 'outline-success'}
           onClick={() => setGeneroSeleccionado('Pop')}
         >
           Pop
         </Button>
+
         <Button
           variant={generoSeleccionado === 'Trap' ? 'success' : 'outline-success'}
           onClick={() => setGeneroSeleccionado('Trap')}
@@ -50,39 +136,56 @@ const GrillaReproductores = () => {
         </Button>
       </div>
 
-     
       <Row className="g-3">
-        {cancionesFiltradas.map((cancion) => (
-       
+        {cancionesAMostrar.map((cancion) => (
           <Col xs={12} sm={6} md={4} lg={3} key={cancion.id} className="mb-3">
             <div className="h-100 d-flex flex-column">
               <iframe
                 style={{ borderRadius: "12px" }}
                 src={cancion.url}
                 width="100%"
-                height="80" 
+                height="80"
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 title={cancion.nombre}
               ></iframe>
-              <Link 
-                to={`/detalle/${cancion.id}/${cancion.nombre.replaceAll(" ", "-")}/${cancion.artista.replaceAll(" ", "-")}`} 
-                className="text-decoration-none"
+
+              <Button
+                as={Link}
+                to={`/detalle/${cancion.id}/${cancion.nombre.replaceAll(" ", "-")}/${cancion.artista.replaceAll(" ", "-")}`}
+                variant="outline-success"
+                size="sm"
+                className="text-decoration-none rounded-pill fw-bold mt-2 align-self-start"
               >
-                <Button variant='outline-light' size="sm" className='w-80 rounded-pill fw-bold mt-2'>
-                  Ver Detalle
-                </Button>
-              </Link>
+                Ver Detalle
+              </Button>
+
+              <Button
+                variant="success"
+                size="sm"
+                className="rounded-pill fw-bold mt-2 align-self-start"
+                onClick={() => agregarAPlaylist(cancion)}
+              >
+                Agregar a Playlist
+              </Button>
             </div>
           </Col>
         ))}
       </Row>
 
+      {cantidadVisible < cancionesFiltradas.length && (
+        <div className="d-flex justify-content-center mt-4">
+          <Button variant="success" onClick={mostrarMasCanciones}>
+            Cargar más canciones
+          </Button>
+        </div>
+      )}
+
       {cancionesFiltradas.length === 0 && (
         <p className="text-center text-secondary mt-4">
-          No hay canciones de este género aún.
+          No hay coincidencias
         </p>
       )}
     </Container>
