@@ -2,9 +2,9 @@
   color: #aaa;
 }
 .form-control:focus {
-  border-color: #23a3179f ;
-  outline: none ;
-  box-shadow: 0 0 8px rgba(38, 219, 32, 0.555) ; 
+  border-color: #23a3179f;
+  outline: none;
+  box-shadow: 0 0 8px rgba(38, 219, 32, 0.555);
 }
 .password-toggle {
   position: absolute;
@@ -19,6 +19,25 @@
   transition: color 0.3s ease;
 }
 .password-toggle:hover {
-  color: #1bf049fb; 
+  color: #1bf049fb;
   cursor: pointer;
+}
+.btnMusic {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
+}
+
+.btnPassword:hover {
+  color: #1bf049fb;
+  cursor: pointer;
+}
+
+.btnGoogle {
+  size: 20px;
+}
+
+.input:focus {
+  box-shadow: none;
 }
