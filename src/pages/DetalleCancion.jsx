@@ -8,7 +8,7 @@ const DetalleCancion = () => {
   const [cancion, setCancion] = useState(null);
 
   useEffect(() => {
-    let cancionesGuardadas = JSON.parse(localStorage.getItem('canciones')) || [];
+    const cancionesGuardadas = JSON.parse(localStorage.getItem('canciones')) || [];
 
     if (cancionesGuardadas.length === 0) {
       localStorage.setItem('canciones', JSON.stringify(cancionesIniciales));
