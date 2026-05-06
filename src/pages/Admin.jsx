@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Admin = () => {
-  // Estado para guardar las canciones
+
   const [canciones, setCanciones] = useState([]);
-  
-  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
+
   const servidor = window.location.hostname;
 
-  // Función para obtener las canciones del JSON
   const obtenerCanciones = async () => {
     try {
       const respuesta = await fetch(`http://${servidor}:3001/canciones`);
@@ -30,12 +28,10 @@ const Admin = () => {
     }
   };
 
-  // Se ejecuta una sola vez al cargar el componente
   useEffect(() => {
     obtenerCanciones();
   }, []);
 
-  // NUEVA FUNCIÓN: BORRAR CANCIÓN
   const borrarCancion = (id, nombre) => {
     Swal.fire({
       title: `¿Estás seguro de borrar "${nombre}"?`,
@@ -49,14 +45,12 @@ const Admin = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // Petición DELETE a json-server
           const respuesta = await fetch(`http://${servidor}:3001/canciones/${id}`, {
             method: "DELETE",
           });
 
           if (respuesta.ok) {
             Swal.fire("¡Borrada!", "La canción ha sido eliminada.", "success");
-            // Volvemos a pedir las canciones para que la tabla se actualice sola
             obtenerCanciones();
           } else {
             Swal.fire("Error", "No se pudo eliminar la canción", "error");
@@ -81,7 +75,6 @@ const Admin = () => {
         </div>
         <hr className="text-secondary" />
 
-        {/* Tabla de canciones */}
         <Table responsive striped bordered hover variant="dark" className="mt-4 mb-5">
           <thead>
             <tr className="text-center align-middle">
@@ -120,12 +113,11 @@ const Admin = () => {
                   />
                 </td>
                 <td>
-                  {/* BOTÓN EDITAR: Ahora es un Link que te redirige a la ruta de edición */}
+                  
                   <Link to={`/admin/editar/${cancion.id}`} className="btn btn-success me-2" title="Editar">
                     <i className="bi bi-pencil-square"></i>
                   </Link>
 
-                  {/* BOTÓN BORRAR: Ejecuta la función con alerta de SweetAlert2 */}
                   <Button variant="danger" title="Borrar" onClick={() => borrarCancion(cancion.id, cancion.nombre)}>
                     <i className="bi bi-trash"></i>
                   </Button>
@@ -133,7 +125,7 @@ const Admin = () => {
               </tr>
             ))}
 
-            {/* Mensaje por si el JSON está vacío */}
+            
             {canciones.length === 0 && (
               <tr>
                 <td colSpan="7" className="text-center">No hay canciones cargadas.</td>

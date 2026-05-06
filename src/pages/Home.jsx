@@ -11,7 +11,6 @@ const imagenesExtraidas = import.meta.glob('../assets/imagenesCarrousel/*.{jpg,j
 });
 
 
-// 2. Convertimos el resultado de Vite en un arreglo limpio para nuestro CarruselDinamico
 const listaImagenes = Object.values(imagenesExtraidas).map((urlImagen, indice) => ({
   src: urlImagen,
   alt: `Slide ${indice + 1}`
