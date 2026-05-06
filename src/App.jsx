@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import Footer from "./componets/Footer";
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import Playlist from "./pages/PlayList";
+import RutaProtegida from "./componets/ProtectorAdmin";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -32,19 +33,43 @@ function App() {
             path="/Login"
             element={<Login setUsuarioLogueado={setUsuarioLogueado} />}
           />
+
           <Route path="/Registro" element={<Registro />} />
+
           <Route path="/" element={<Home />} />
-          <Route path="/detalle/:id/:nombre/:artista" element={<DetalleCancion />} />
+
+          <Route
+            path="/detalle/:id/:nombre/:artista"
+            element={<DetalleCancion />}
+          />
+
           <Route path="/playlist" element={<Playlist />} />
-          <Route path="/admin" element={<Admin />} />
+
+          <Route
+            path="/admin"
+            element={
+              <RutaProtegida usuarioLogueado={usuarioLogueado}>
+                <Admin />
+              </RutaProtegida>
+            }
+          />
 
           <Route
             path="/admin/crear"
-            element={<FormularioCancion titulo="Crear Canción" />}
+            element={
+              <RutaProtegida usuarioLogueado={usuarioLogueado}>
+                <FormularioCancion titulo="Crear Canción" />
+              </RutaProtegida>
+            }
           />
+
           <Route
             path="/admin/editar/:id"
-            element={<FormularioCancion titulo="Editar Canción" />}
+            element={
+              <RutaProtegida usuarioLogueado={usuarioLogueado}>
+                <FormularioCancion titulo="Editar Canción" />
+              </RutaProtegida>
+            }
           />
         </Routes>
 
