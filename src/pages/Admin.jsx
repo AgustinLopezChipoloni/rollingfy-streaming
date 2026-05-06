@@ -73,10 +73,10 @@ const Admin = () => {
             </Link>
           </div>
           <div>
-            <Link className="btn btn-outline-light ms-2" to="/adminUsuarios">
+            <Link className="btn btn-outline-light ms-2" to="/admin/Usuarios">
             <i className="bi bi-people me-2"></i>Usuarios
             </Link>
-            <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+            
           </div>
         </div>
         <hr className="text-secondary" />
