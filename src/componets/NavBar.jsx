@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
+
 import logoImagen from "../assets/Logo.png";
 
 const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
@@ -36,14 +37,17 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
           <Nav className="ms-auto my-2 my-lg-0">
             <Nav.Link as={NavLink} to="/">Home</Nav.Link>
 
+
             {!usuarioLogueado ? (
               <NavDropdown title="Iniciar Sesión" id="navbarScrollingDropdown" align="end" menuVariant="dark">
                 <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="/login">Login</NavDropdown.Item>
               </NavDropdown>
             ) : (
+
               <>
                 <Nav.Link as={NavLink} to="/playlist">Mi Playlist</Nav.Link>
+
 
                 {usuarioLogueado.rol === 'admin' && (
                   <Nav.Link as={NavLink} to="/admin" className="text-success-emphasis">

@@ -34,6 +34,7 @@ const onSubmit = (datos) => {
     navegacion("/admin");
     return;
   }
+
   const usuarios = obtenerUsuarios();
 
   const usuarioEncontrado = usuarios.find(
@@ -60,6 +61,7 @@ const onSubmit = (datos) => {
     });
   }
 };
+
   return (
     <>
       <Container fluid>
