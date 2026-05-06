@@ -1,100 +1,107 @@
 import { Form, Button, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate, useParams, Link } from "react-router-dom"; // Importamos Link
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { cancionesIniciales } from "../../helpers/DatosInicio";
 
 const FormularioCancion = ({ titulo }) => {
   const {
     register,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
   } = useForm();
 
   const { id } = useParams();
   const navegacion = useNavigate();
 
-  const servidor = window.location.hostname;
+  const obtenerCancionesLocalStorage = () => {
+    const cancionesGuardadas = JSON.parse(localStorage.getItem("canciones")) || [];
 
-  const buscarCancion = async () => {
-    if (titulo === "Editar Canción") {
-      try {
-
-        const respuesta = await fetch(`http://${servidor}:3001/canciones/${id}`);
-
-        if (respuesta.ok) {
-          const cancionBuscada = await respuesta.json();
-          
-          reset(cancionBuscada);
-          
-        } else {
-          Swal.fire("Error", "No se encontró la canción para editar", "error");
-        }
-      } catch (error) {
-        console.error("Error buscando la canción", error);
-      }
+    if (cancionesGuardadas.length === 0) {
+      localStorage.setItem("canciones", JSON.stringify(cancionesIniciales));
+      return cancionesIniciales;
     }
+
+    return cancionesGuardadas;
+  };
+
+  const generarNuevoId = (canciones) => {
+    const idsNumericos = canciones.map((cancion) => Number(cancion.id));
+
+    const idMayor = Math.max(...idsNumericos);
+
+    const nuevoId = idMayor + 1;
+
+    return String(nuevoId);
   };
 
   useEffect(() => {
     if (titulo === "Editar Canción") {
-      buscarCancion();
-    }
-  }, [id, titulo]);
+      const canciones = obtenerCancionesLocalStorage();
 
-  const onSubmit = async (cancion) => {
+      const cancionBuscada = canciones.find(
+        (cancion) => cancion.id === id
+      );
+
+      if (cancionBuscada) {
+        reset(cancionBuscada);
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "No se encontró la canción para editar",
+          icon: "error",
+        });
+
+        navegacion("/admin");
+      }
+    }
+  }, [id, titulo, reset, navegacion]);
+
+  const onSubmit = (cancion) => {
+    const canciones = obtenerCancionesLocalStorage();
+
     if (titulo === "Crear Canción") {
-      try {
-        const respuesta = await fetch(`http://${servidor}:3001/canciones`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cancion),
-        });
+      const nuevaCancion = {
+        ...cancion,
+        id: generarNuevoId(canciones),
+      };
 
-        if (respuesta.ok) {
-          Swal.fire({
-            title: "Canción agregada",
-            text: `La canción "${cancion.nombre}" se agregó correctamente`,
-            icon: "success",
-          });
-          navegacion("/admin");
-        } else {
-          Swal.fire("Error", "No se pudo guardar la canción", "error");
+      const cancionesActualizadas = [...canciones, nuevaCancion];
+
+      localStorage.setItem("canciones", JSON.stringify(cancionesActualizadas));
+
+      Swal.fire({
+        title: "Canción agregada",
+        text: `La canción "${nuevaCancion.nombre}" se agregó correctamente`,
+        icon: "success",
+        confirmButtonColor: "#198754",
+      });
+
+      navegacion("/admin");
+    } else {
+      const cancionesActualizadas = canciones.map((cancionActual) => {
+        if (cancionActual.id === id) {
+          return {
+            ...cancion,
+            id: id,
+          };
         }
-      } catch (error) {
-        console.error("Error al guardar:", error);
-        Swal.fire("Error", "Fallo la conexión con la base de datos", "error");
-      }
-    }
-    else {
 
-      try {
-        const respuesta = await fetch(`http://${servidor}:3001/canciones/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cancion),
-        });
+        return cancionActual;
+      });
 
-        if (respuesta.ok) {
-          Swal.fire({
-            title: "Canción modificada",
-            text: `La canción "${cancion.nombre}" se actualizó correctamente`,
-            icon: "success",
-          });
-          navegacion("/admin");
-        } else {
-          Swal.fire("Error", "No se pudo editar la canción", "error");
-        }
-      } catch (error) {
-        console.error("Error al editar:", error);
-        Swal.fire("Error", "Fallo la conexión con la base de datos", "error");
-      }
+      localStorage.setItem("canciones", JSON.stringify(cancionesActualizadas));
+
+      Swal.fire({
+        title: "Canción modificada",
+        text: `La canción "${cancion.nombre}" se actualizó correctamente`,
+        icon: "success",
+        confirmButtonColor: "#198754",
+      });
+
+      navegacion("/admin");
     }
   };
 
@@ -104,8 +111,10 @@ const FormularioCancion = ({ titulo }) => {
         <h1 className="display-4 text-light">{titulo}</h1>
         <hr className="text-secondary" />
 
-        <Form className="my-4 text-light p-4 rounded bg-dark border border-secondary" onSubmit={handleSubmit(onSubmit)}>
-
+        <Form
+          className="my-4 text-light p-4 rounded bg-dark border border-secondary"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Form.Group className="mb-3" controlId="formNombre">
             <Form.Label>Título de la canción*</Form.Label>
             <Form.Control
@@ -120,11 +129,14 @@ const FormularioCancion = ({ titulo }) => {
                 maxLength: {
                   value: 100,
                   message: "El título debe tener como máximo 100 caracteres",
-                }
+                },
               })}
             />
-            <Form.Text className="text-danger">{errors.nombre?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.nombre?.message}
+            </Form.Text>
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="formArtista">
             <Form.Label>Artista o Banda*</Form.Label>
             <Form.Control
@@ -139,50 +151,56 @@ const FormularioCancion = ({ titulo }) => {
                 maxLength: {
                   value: 100,
                   message: "El nombre del artista debe tener como máximo 100 caracteres",
-                }
+                },
               })}
             />
-            <Form.Text className="text-danger">{errors.artista?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.artista?.message}
+            </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formAalbum">
-            <Form.Label>Album</Form.Label>
+          <Form.Group className="mb-3" controlId="formAlbum">
+            <Form.Label>Álbum*</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ej: Soda Stereo"
+              placeholder="Ej: Canción Animal"
               {...register("album", {
-                required: "El album es un dato obligatorio",
+                required: "El álbum es un dato obligatorio",
                 minLength: {
                   value: 2,
-                  message: "El album del artista debe tener al menos 2 caracteres",
+                  message: "El álbum debe tener al menos 2 caracteres",
                 },
                 maxLength: {
                   value: 100,
-                  message: "El album del artista debe tener como máximo 100 caracteres",
-                }
+                  message: "El álbum debe tener como máximo 100 caracteres",
+                },
               })}
             />
-            <Form.Text className="text-danger">{errors.album?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.album?.message}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formAnio">
             <Form.Label>Año*</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ej: Soda Stereo"
+              placeholder="Ej: 2025"
               {...register("anio", {
                 required: "El año es un dato obligatorio",
                 minLength: {
-                  value: 2,
-                  message: "El año del artista debe tener al menos 2 caracteres",
+                  value: 4,
+                  message: "El año debe tener al menos 4 caracteres",
                 },
                 maxLength: {
-                  value: 100,
-                  message: "El nombre del artista debe tener como máximo 100 caracteres",
-                }
+                  value: 4,
+                  message: "El año debe tener como máximo 4 caracteres",
+                },
               })}
             />
-            <Form.Text className="text-danger">{errors.anio?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.anio?.message}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formUrl">
@@ -194,30 +212,36 @@ const FormularioCancion = ({ titulo }) => {
                 required: "La URL es obligatoria",
                 pattern: {
                   value: /^https:\/\/open\.spotify\.com\/embed\/.*/,
-                  message: "Debe ser una URL válida de inserción (embed) de Spotify",
-                }
+                  message: "Debe ser una URL válida de inserción embed de Spotify",
+                },
               })}
             />
-            <Form.Text className="text-danger">{errors.url?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.url?.message}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPortada">
             <Form.Label>URL de la portada*</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ej: https://open.spotify.com/embed/track/..."
+              placeholder="Ej: https://i.scdn.co/image/..."
               {...register("imagen", {
-                required: "La URL es obligatoria"
-
+                required: "La URL de la portada es obligatoria",
               })}
             />
-            <Form.Text className="text-danger">{errors.url?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.imagen?.message}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-4" controlId="formGenero">
             <Form.Label>Género*</Form.Label>
             <Form.Select
-              {...register("genero", { required: "Debe seleccionar un género" })}>
+              {...register("genero", {
+                required: "Debe seleccionar un género",
+              })}
+            >
               <option value="">Seleccione una opción</option>
               <option value="Rock">Rock</option>
               <option value="Pop">Pop</option>
@@ -227,13 +251,16 @@ const FormularioCancion = ({ titulo }) => {
               <option value="Electronica">Electrónica</option>
               <option value="Indie">Indie</option>
             </Form.Select>
-            <Form.Text className="text-danger">{errors.genero?.message}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.genero?.message}
+            </Form.Text>
           </Form.Group>
 
           <div className="d-flex gap-2 mt-4">
             <Button type="submit" variant="success" className="w-100">
               {titulo === "Crear Canción" ? "Guardar Canción" : "Guardar Cambios"}
             </Button>
+
             <Link to="/admin" className="btn btn-secondary w-100">
               Volver Atrás
             </Link>
