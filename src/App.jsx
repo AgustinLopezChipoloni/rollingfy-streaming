@@ -8,14 +8,13 @@ import DetalleCancion from "./pages/DetalleCancion";
 import Admin from "./pages/Admin";
 import Footer from "./componets/Footer";
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
-import Playlist from "./pages/PlayList";
+import Playlist from "./pages/Playlist";
 import RutaProtegida from "./componets/ProtectorAdmin";
-import AdminUsuarios from "./Pages/AdminUsuarios";
+import AdminUsuarios from "./pages/AdminUsuarios";
 import { useState, useEffect } from "react";
-
 function App() {
   const sesionUsuario = JSON.parse(localStorage.getItem("usuarioKey")) || false;
-  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);  
+  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);
   const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
@@ -58,7 +57,14 @@ function App() {
             }
           />
 
-          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+          <Route
+            path="/admin/usuarios"
+            element={
+              <RutaProtegida usuarioLogueado={usuarioLogueado}>
+                <AdminUsuarios />
+              </RutaProtegida>
+            }
+          />
 
           <Route
             path="/admin/crear"
