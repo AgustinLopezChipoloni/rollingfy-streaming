@@ -72,6 +72,12 @@ const Admin = () => {
               <i className="bi bi-music-note-list me-2"></i>Nueva Canción
             </Link>
           </div>
+          <div>
+            <Link className="btn btn-outline-light ms-2" to="/admin/Usuarios">
+            <i className="bi bi-people me-2"></i>Usuarios
+            </Link>
+            
+          </div>
         </div>
         <hr className="text-secondary" />
 

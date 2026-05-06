@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Playlist = () => {
   const [playlist, setPlaylist] = useState([]);
@@ -23,33 +24,58 @@ const Playlist = () => {
   }, []);
 
   const eliminarCancion = (id) => {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-    const nuevaPlaylist = playlist.filter(
-      (cancion) => cancion.id !== id
+    const cancionAEliminar = playlist.find(
+      (cancion) => cancion.id === id
     );
 
-    const usuariosActualizados = usuarios.map((usuarioActual) => {
-      if (usuarioActual.email === usuario.email) {
-        return {
-          ...usuarioActual,
+    Swal.fire({
+      title: '¿Eliminar canción?',
+      text: `¿Seguro que querés eliminar "${cancionAEliminar.nombre}" de tu playlist?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#198754'
+    }).then((resultado) => {
+      if (resultado.isConfirmed) {
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+        const nuevaPlaylist = playlist.filter(
+          (cancion) => cancion.id !== id
+        );
+
+        const usuariosActualizados = usuarios.map((usuarioActual) => {
+          if (usuarioActual.email === usuario.email) {
+            return {
+              ...usuarioActual,
+              playlist: nuevaPlaylist
+            };
+          }
+
+          return usuarioActual;
+        });
+
+        const usuarioActualizado = {
+          ...usuario,
           playlist: nuevaPlaylist
         };
+
+        localStorage.setItem('usuarios', JSON.stringify(usuariosActualizados));
+        localStorage.setItem('usuarioKey', JSON.stringify(usuarioActualizado));
+
+        setUsuario(usuarioActualizado);
+        setPlaylist(nuevaPlaylist);
+
+        Swal.fire({
+          title: 'Canción eliminada',
+          text: 'La canción fue eliminada correctamente de tu playlist.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#198754'
+        });
       }
-
-      return usuarioActual;
     });
-
-    const usuarioActualizado = {
-      ...usuario,
-      playlist: nuevaPlaylist
-    };
-
-    localStorage.setItem('usuarios', JSON.stringify(usuariosActualizados));
-    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioKey'));
-
-    setUsuario(usuarioActualizado);
-    setPlaylist(nuevaPlaylist);
   };
 
   if (!usuario) {
