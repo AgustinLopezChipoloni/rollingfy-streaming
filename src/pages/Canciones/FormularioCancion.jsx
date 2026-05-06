@@ -16,19 +16,17 @@ const FormularioCancion = ({ titulo }) => {
   const { id } = useParams();
   const navegacion = useNavigate();
 
-  // Detecta automáticamente si estás en 'localhost' o en tu IP '192.168.X.X'
   const servidor = window.location.hostname;
 
   const buscarCancion = async () => {
     if (titulo === "Editar Canción") {
       try {
-        // 1. Hacemos la petición REAL a json-server pidiendo la canción por su ID
+
         const respuesta = await fetch(`http://${servidor}:3001/canciones/${id}`);
 
         if (respuesta.ok) {
           const cancionBuscada = await respuesta.json();
           
-          // 2. Magia pura: reset() llena todos los campos al instante con los datos de la base de datos
           reset(cancionBuscada);
           
         } else {
@@ -44,8 +42,6 @@ const FormularioCancion = ({ titulo }) => {
     if (titulo === "Editar Canción") {
       buscarCancion();
     }
-    // 3. ¡Importante! Agregamos 'id' al arreglo de dependencias. 
-    // Así React sabe que si la URL cambia a un ID distinto, debe volver a cargar.
   }, [id, titulo]);
 
   const onSubmit = async (cancion) => {
@@ -75,7 +71,7 @@ const FormularioCancion = ({ titulo }) => {
       }
     }
     else {
-      // AQUÍ OCURRE LA MAGIA DE LA EDICIÓN (Usamos método PUT y le pasamos el ID en la URL)
+
       try {
         const respuesta = await fetch(`http://${servidor}:3001/canciones/${id}`, {
           method: "PUT",
@@ -110,7 +106,6 @@ const FormularioCancion = ({ titulo }) => {
 
         <Form className="my-4 text-light p-4 rounded bg-dark border border-secondary" onSubmit={handleSubmit(onSubmit)}>
 
-          {/* TITULO DE LA CANCION */}
           <Form.Group className="mb-3" controlId="formNombre">
             <Form.Label>Título de la canción*</Form.Label>
             <Form.Control
@@ -130,7 +125,6 @@ const FormularioCancion = ({ titulo }) => {
             />
             <Form.Text className="text-danger">{errors.nombre?.message}</Form.Text>
           </Form.Group>
-          {/* ARTISTA */}
           <Form.Group className="mb-3" controlId="formArtista">
             <Form.Label>Artista o Banda*</Form.Label>
             <Form.Control
@@ -151,7 +145,6 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.artista?.message}</Form.Text>
           </Form.Group>
 
-          {/* Album */}
           <Form.Group className="mb-3" controlId="formAalbum">
             <Form.Label>Album</Form.Label>
             <Form.Control
@@ -172,7 +165,6 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.album?.message}</Form.Text>
           </Form.Group>
 
-          {/* Año */}
           <Form.Group className="mb-3" controlId="formAnio">
             <Form.Label>Año*</Form.Label>
             <Form.Control
@@ -193,7 +185,6 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.anio?.message}</Form.Text>
           </Form.Group>
 
-          {/* URL DE SPOTIFY */}
           <Form.Group className="mb-3" controlId="formUrl">
             <Form.Label>URL del Embed de Spotify*</Form.Label>
             <Form.Control
@@ -210,8 +201,6 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.url?.message}</Form.Text>
           </Form.Group>
 
-          {/* URL DE PORTADA */}
-
           <Form.Group className="mb-3" controlId="formPortada">
             <Form.Label>URL de la portada*</Form.Label>
             <Form.Control
@@ -225,7 +214,6 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.url?.message}</Form.Text>
           </Form.Group>
 
-          {/* GÉNERO MUSICAL */}
           <Form.Group className="mb-4" controlId="formGenero">
             <Form.Label>Género*</Form.Label>
             <Form.Select
@@ -242,12 +230,10 @@ const FormularioCancion = ({ titulo }) => {
             <Form.Text className="text-danger">{errors.genero?.message}</Form.Text>
           </Form.Group>
 
-          {/* BOTONERA (Guardar y Volver) */}
           <div className="d-flex gap-2 mt-4">
             <Button type="submit" variant="success" className="w-100">
               {titulo === "Crear Canción" ? "Guardar Canción" : "Guardar Cambios"}
             </Button>
-            {/* Botón Volver */}
             <Link to="/admin" className="btn btn-secondary w-100">
               Volver Atrás
             </Link>
