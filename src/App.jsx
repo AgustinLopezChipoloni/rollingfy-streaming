@@ -10,6 +10,7 @@ import Footer from "./componets/Footer";
 import FormularioCancion from "./pages/Canciones/FormularioCancion";
 import Playlist from "./pages/PlayList";
 import RutaProtegida from "./componets/ProtectorAdmin";
+import AdminUsuarios from "./Pages/Adminusuarios";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
               </RutaProtegida>
             }
           />
+
+          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
 
           <Route
             path="/admin/crear"
