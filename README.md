@@ -44,6 +44,3 @@ src/
  ┣ App.jsx           # Configuración de rutas y estado global
  ┗ main.jsx          # Punto de entrada de la aplicación
 
-
- --comandos
- npx json-server canciones.json --port 3001 --host 0.0.0.0

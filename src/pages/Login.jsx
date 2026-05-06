@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Container, Row, Card, Col, Form, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
+<<<<<<< Updated upstream
 import { obtenerUsuarios } from "../helpers/LocalStorage";
+=======
+import { AuthContext } from "../context/AuthContext";
+>>>>>>> Stashed changes
 import "../index.css";
 
-const Login = ({ setUsuarioLogueado }) => {
+const Login = () => {
+  const { login } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -30,33 +36,89 @@ const onSubmit = (datos) => {
       datos.email.trim() === import.meta.env.VITE_API_EMAIL &&
       datos.password.trim() === import.meta.env.VITE_API_PASSWORD
     ) {
+<<<<<<< Updated upstream
       console.log("Aqui logueo al usuario");
       setUsuarioLogueado(true);
+=======
+      const admin = {
+        nombreUsuario: "Administrador",
+        nombre: "Administrador",
+        email: datos.email.trim().toLowerCase(),
+        rol: "admin",
+        playlist: [],
+      };
+
+      login(admin);
+
+>>>>>>> Stashed changes
       Swal.fire({
         title: "Bienvenido administrador",
-        text: "Iniciaste sesion correctamente",
+        text: "Iniciaste sesión correctamente",
         icon: "success",
       });
+
       navegacion("/admin");
+<<<<<<< Updated upstream
+=======
+      return;
+    }
+
+    const usuariosJSON = localStorage.getItem("usuarios");
+    const usuarios = usuariosJSON ? JSON.parse(usuariosJSON) : [];
+
+    const usuarioEncontrado = usuarios.find(
+      (usuario) =>
+        usuario.email === datos.email.trim().toLowerCase() &&
+        usuario.password === datos.password.trim()
+    );
+
+    if (usuarioEncontrado) {
+      const usuarioConPlaylist = {
+        ...usuarioEncontrado,
+        playlist: usuarioEncontrado.playlist || [],
+      };
+
+      login(usuarioConPlaylist);
+
+      Swal.fire({
+        title: `Bienvenido ${usuarioConPlaylist.nombreUsuario}`,
+        text: "Iniciaste sesión correctamente",
+        icon: "success",
+      });
+
+      navegacion("/");
+>>>>>>> Stashed changes
     } else {
       Swal.fire({
-        title: "Ocurrio un error",
+        title: "Ocurrió un error",
         text: "Credenciales incorrectas",
         icon: "error",
       });
     }
   };
 
+<<<<<<< Updated upstream
     Swal.fire({
       title: "Bienvenido administrador",
       text: "Iniciaste sesion correctamente",
       icon: "success",
     });
+=======
+  const loginConGoogle = useGoogleLogin({
+    onSuccess: async (tokenGenerado) => {
+      const respuestaGoogle = await fetch(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: { Authorization: `Bearer ${tokenGenerado.access_token}` },
+        }
+      );
+>>>>>>> Stashed changes
 
     navegacion("/admin");
     return;
   }
 
+<<<<<<< Updated upstream
   const usuarios = obtenerUsuarios();
 
   const usuarioEncontrado = usuarios.find(
@@ -136,21 +198,122 @@ const onSubmit = (datos) => {
                     >
                       {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
+=======
+      const datos = await respuestaGoogle.json();
 
-                    <Form.Text className="fw-bold text-danger">
-                      {errors.password?.message}
-                    </Form.Text>
-                  </Form.Group>
+      const usuariosJSON = localStorage.getItem("usuarios");
+      const usuarios = usuariosJSON ? JSON.parse(usuariosJSON) : [];
 
-                  <Button
-                    type="submit"
-                    className="w-100 fw-bold bg-dark border-light"
+      const usuarioExistente = usuarios.find(
+        (usuario) => usuario.email === datos.email
+      );
+
+      let usuarioGoogle;
+
+      if (usuarioExistente) {
+        usuarioGoogle = {
+          ...usuarioExistente,
+          playlist: usuarioExistente.playlist || [],
+        };
+      } else {
+        usuarioGoogle = {
+          nombreUsuario: datos.name,
+          nombre: datos.name,
+          email: datos.email,
+          rol: "usuario",
+          playlist: [],
+        };
+
+        usuarios.push(usuarioGoogle);
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      }
+
+      login(usuarioGoogle);
+
+      Swal.fire({
+        title: `Hola ${usuarioGoogle.nombreUsuario}`,
+        text: "Iniciaste sesión correctamente",
+        icon: "success",
+      });
+
+      navegacion("/");
+    },
+
+    onError: () => {
+      Swal.fire({
+        title: "Error",
+        text: "No fue posible iniciar sesión con Google.",
+        icon: "error",
+      });
+    },
+  });
+
+  return (
+    <>
+    <Container fluid>
+      <Row className="justify-content-center align-items-center vh-100">
+        <Col xs={11} sm={8} md={6} lg={4}>
+          <Card className="bg-dark text-light border border-light p-4 shadow">
+            <Card.Body>
+              <h1 className="text-center fw-bold mb-2">Iniciar sesión</h1>
+              <p className="text-center fw-bold mb-4">Accede a tu cuenta</p>
+>>>>>>> Stashed changes
+
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group className="mb-4">
+                  <Form.Label className="fw-bold">Email:</Form.Label>
+
+                  <Form.Control
+                    type="email"
+                    placeholder="diego@gmail.com"
+                    className="bg-dark text-light border-light input"
+                    {...register("email", {
+                      required: "El email es un campo obligatorio",
+                      pattern: {
+                        value:
+                          /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                        message:
+                          "El email debe ser un correo válido por ejemplo: diegogimenez@gmail.com",
+                      },
+                    })}
+                  />
+
+                  <Form.Text className="fw-bold text-danger">
+                    {errors.email?.message}
+                  </Form.Text>
+                </Form.Group>
+
+                <Form.Group className="mb-3 position-relative">
+                  <Form.Label className="fw-bold">Contraseña:</Form.Label>
+
+                  <Form.Control
+                    type={mostrarPassword ? "text" : "password"}
+                    placeholder="Ingresa tu contraseña"
+                    className="bg-dark text-light border-light pe-5 input"
+                    {...register("password", {
+                      required: "La contraseña es un campo obligatorio",
+                      pattern: {
+                        value:
+                          /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+                        message:
+                          "La contraseña debe tener entre 8 y 16 caracteres, al menos una minúscula, al menos una mayúscula y al menos un carácter especial",
+                      },
+                    })}
+                  />
+
+                  <span
+                    onClick={() => setMostrarPassword(!mostrarPassword)}
+                    className="btnMusic"
                   >
-                    Ingresar
-                  </Button>
+                    {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
 
-                  <p className="text-center fw-bold mt-3">o</p>
+                  <Form.Text className="fw-bold text-danger">
+                    {errors.password?.message}
+                  </Form.Text>
+                </Form.Group>
 
+<<<<<<< Updated upstream
                   <Button className="w-100 mt-2 bg-dark border-light d-flex align-items-center justify-content-center gap-2 fw-bold">
                     <FcGoogle className="btnGoogle" /> Continuar con Google
                   </Button>
@@ -160,6 +323,30 @@ const onSubmit = (datos) => {
           </Col>
         </Row>
       </Container>
+=======
+                <Button
+                  type="submit"
+                  className="w-100 fw-bold bg-dark border-light"
+                >
+                  Ingresar
+                </Button>
+
+                <p className="text-center fw-bold mt-3">o</p>
+
+                <Button
+                  type="button"
+                  className="w-100 mt-2 bg-dark border-light d-flex align-items-center justify-content-center gap-2 fw-bold"
+                  onClick={() => loginConGoogle()}
+                >
+                  <FcGoogle className="btnGoogle" /> Continuar con Google
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+>>>>>>> Stashed changes
     </>
   );
 };

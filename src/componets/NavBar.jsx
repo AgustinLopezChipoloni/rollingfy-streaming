@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
+<<<<<<< Updated upstream
 
 import logoImagen from "../assets/Logo.png";
 
@@ -11,6 +12,13 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
     localStorage.removeItem("usuarioKey");
     setUsuarioLogueado(false);
   };
+=======
+import { AuthContext } from '../context/AuthContext';
+import logoImagen from "../assets/Logo.png";
+
+const NavBar = ({ busqueda, setBusqueda }) => {
+  const { usuarioLogueado, logout } = useContext(AuthContext);
+>>>>>>> Stashed changes
 
   return (
     <Navbar sticky="top" expand="lg" className="bg-dark" data-bs-theme="dark">
@@ -29,25 +37,55 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
         </Navbar.Toggle>
 
         <Navbar.Collapse id="navbarScroll">
+<<<<<<< Updated upstream
           <Form className="d-flex mx-auto" style={{ maxWidth: '400px', width: '100%' }}>
             <Form.Control type="search" placeholder="Buscar..." className="me-2" />
             <Button variant="outline-success">Buscar</Button>
+=======
+          <Form
+            className="d-flex mx-auto"
+            style={{ maxWidth: '400px', width: '100%' }}
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <Form.Control
+              type="search"
+              placeholder="Buscar..."
+              className="me-2"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
+
+            <Button variant="outline-success">
+              Buscar
+            </Button>
+>>>>>>> Stashed changes
           </Form>
 
           <Nav className="ms-auto my-2 my-lg-0">
-            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-
+            <Nav.Link as={NavLink} to="/">
+              Home
+            </Nav.Link>
 
             {!usuarioLogueado ? (
-              <NavDropdown title="Iniciar Sesión" id="navbarScrollingDropdown" align="end" menuVariant="dark">
-                <NavDropdown.Item as={NavLink} to="/registro">Registrarse</NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/login">Login</NavDropdown.Item>
+              <NavDropdown
+                title="Iniciar Sesión"
+                id="navbarScrollingDropdown"
+                align="end"
+                menuVariant="dark"
+              >
+                <NavDropdown.Item as={NavLink} to="/registro">
+                  Registrarse
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={NavLink} to="/login">
+                  Login
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
-
               <>
-                <Nav.Link as={NavLink} to="/playlist">Mi Playlist</Nav.Link>
-
+                <Nav.Link as={NavLink} to="/playlist">
+                  Mi Playlist
+                </Nav.Link>
 
                 {usuarioLogueado.rol === 'admin' && (
                   <Nav.Link as={NavLink} to="/admin" className="text-success-emphasis">
@@ -56,7 +94,7 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
                 )}
 
                 <NavDropdown
-                  title={`Hola, ${usuarioLogueado.nombreUsuario}`}
+                  title={`Hola, ${usuarioLogueado.nombreUsuario || usuarioLogueado.nombre}`}
                   id="navbar-user-dropdown"
                   align="end"
                   menuVariant="dark"
@@ -67,7 +105,6 @@ const NavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
                 </NavDropdown>
               </>
             )}
-
           </Nav>
         </Navbar.Collapse>
       </Container>
