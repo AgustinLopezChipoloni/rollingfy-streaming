@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import { obtenerUsuarios } from "../helpers/LocalStorage";
+import { useGoogleLogin } from "@react-oauth/google";
 import "../index.css";
 
 const Login = ({ setUsuarioLogueado }) => {
@@ -16,6 +17,7 @@ const Login = ({ setUsuarioLogueado }) => {
   } = useForm();
 
   const navegacion = useNavigate();
+
   const [mostrarPassword, setMostrarPassword] = useState(false);
 
 const onSubmit = (datos) => {
@@ -47,6 +49,40 @@ const onSubmit = (datos) => {
     }
   };
 
+  const loginConGoogle = useGoogleLogin({
+    onSuccess: async (tokenGenerado) => {
+      const respuestaGoogle = await fetch(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: { Authorization: `Bearer ${tokenGenerado.access_token}` },
+        },
+      );
+      const datos = await respuestaGoogle.json();
+
+      const usuarios = obtenerUsuarios();
+      if (!usuarios.find((usuario) => usuario.email === datos.email)) {
+        usuarios.push(
+          { nombreUsuario: datos.name, email: datos.email, rol: "usuario" },
+          localStorage.getItem("usuariosKey", JSON.stringify(usuarios)),
+        );
+      }
+
+      localStorage.setItem(
+        "usuarioLogueado",
+        JSON.stringify({
+          nombre: datos.name,
+          email: datos.email,
+        }),
+      );
+
+      setUsuarioLogueado(true);
+      Swal.fire({
+        title: `Hola ${datos.name}`,
+        icon: "success",
+      });
+      navegacion("/");
+    },
+  });
     Swal.fire({
       title: "Bienvenido administrador",
       text: "Iniciaste sesion correctamente",
@@ -99,7 +135,7 @@ const onSubmit = (datos) => {
                     <Form.Control
                       type="email"
                       placeholder="diego@gmail.com"
-                      className="bg-dark text-light border-light input"
+                      className="form-control bg-dark text-light border-light"
                       {...register("email", {
                         required: "El email es un campo obligatorio",
                         pattern: {
@@ -119,7 +155,7 @@ const onSubmit = (datos) => {
                     <Form.Control
                       type={mostrarPassword ? "text" : "password"}
                       placeholder="Ingresa tu contraseña"
-                      className="bg-dark text-light border-light pe-5 input"
+                      className="form-control bg-dark text-light border-light pe-5"
                       {...register("password", {
                         required: "La contraseña es un campo obligatorio",
                         pattern: {
@@ -134,7 +170,11 @@ const onSubmit = (datos) => {
                       onClick={() => setMostrarPassword(!mostrarPassword)}
                       className="btnMusic"
                     >
-                      {mostrarPassword ? <FaEyeSlash /> : <FaEye />}
+                      {mostrarPassword ? (
+                        <FaEyeSlash className="btnPassword" />
+                      ) : (
+                        <FaEye className="btnPassword" />
+                      )}
                     </span>
 
                     <Form.Text className="fw-bold text-danger">
@@ -151,7 +191,10 @@ const onSubmit = (datos) => {
 
                   <p className="text-center fw-bold mt-3">o</p>
 
-                  <Button className="w-100 mt-2 bg-dark border-light d-flex align-items-center justify-content-center gap-2 fw-bold">
+                  <Button
+                    className="w-100 mt-2 bg-dark border-light d-flex align-items-center justify-content-center gap-2 fw-bold"
+                    onClick={() => loginConGoogle()}
+                  >
                     <FcGoogle className="btnGoogle" /> Continuar con Google
                   </Button>
                 </Form>
