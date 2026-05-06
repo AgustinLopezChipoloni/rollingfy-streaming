@@ -3,10 +3,10 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { cancionesIniciales } from '../helpers/DatosInicio';
 
-const GrillaReproductores = () => {
+const GrillaReproductores = ({ busqueda }) => {
   const [canciones, setCanciones] = useState([]);
   const [generoSeleccionado, setGeneroSeleccionado] = useState('Todos');
-  const [busqueda, setBusqueda] = useState('');
+ 
 
   const [esCelular, setEsCelular] = useState(window.innerWidth < 768);
   const [cantidadVisible, setCantidadVisible] = useState(window.innerWidth < 768 ? 2 : 8);
@@ -82,18 +82,35 @@ const GrillaReproductores = () => {
     alert('Canción agregada a My Playlist.');
   };
 
+  const normalizarTexto = (texto) => {
+    return texto ? texto
+                     .normalize ('NFD')
+                     .replace(/[\u0300-\u036f]/g, "")
+                     .toLowerCase()
+                   : "";
+  };
+
+  const palabrasIgnoradas = ["y", "e", "ft", "feat", "con", "with", "de", "el", "la", "los", "las"];
+
   const cancionesFiltradas = canciones.filter(cancion => {
     const coincideGenero =
       generoSeleccionado === 'Todos' || cancion.genero === generoSeleccionado;
 
+      const textoCancion = normalizarTexto(`${cancion.nombre} ${cancion.artista}`);
+      const terminosBusqueda = normalizarTexto(busqueda)
+      .split(/[\s,-]+/)
+     .filter(termino => 
+        termino.length > 0 && !palabrasIgnoradas.includes(termino));
+
+      
     const textoBuscado = busqueda.toLowerCase();
 
     const nombreSeguro = cancion.nombre ? cancion.nombre.toLowerCase() : "";
     const artistaSeguro = cancion.artista ? cancion.artista.toLowerCase() : "";
 
-    const coincideTexto =
-      nombreSeguro.includes(textoBuscado) ||
-      artistaSeguro.includes(textoBuscado);
+   const coincideTexto = terminosBusqueda.every(termino => 
+      textoCancion.includes(termino)
+    );
 
     return coincideGenero && coincideTexto;
   });

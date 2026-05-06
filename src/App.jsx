@@ -15,7 +15,8 @@ import { useState, useEffect } from "react";
 
 function App() {
   const sesionUsuario = JSON.parse(localStorage.getItem("usuarioKey")) || false;
-  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);
+  const [usuarioLogueado, setUsuarioLogueado] = useState(sesionUsuario);  
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
     localStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
@@ -27,6 +28,8 @@ function App() {
         <NavBar
           usuarioLogueado={usuarioLogueado}
           setUsuarioLogueado={setUsuarioLogueado}
+          busqueda={busqueda}
+          setBusqueda={setBusqueda}
         />
 
         <Routes>
@@ -37,7 +40,7 @@ function App() {
 
           <Route path="/Registro" element={<Registro />} />
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home busqueda={busqueda} />} />
 
           <Route
             path="/detalle/:id/:nombre/:artista"
