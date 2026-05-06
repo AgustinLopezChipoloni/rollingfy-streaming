@@ -24,6 +24,28 @@ const onSubmit = (datos) => {
     datos.password.trim() === import.meta.env.VITE_API_PASSWORD
   ) {
     setUsuarioLogueado(true);
+  const onSubmit = (datos) => {
+    console.log(datos);
+    if (
+      datos.email.trim() === import.meta.env.VITE_API_EMAIL &&
+      datos.password.trim() === import.meta.env.VITE_API_PASSWORD
+    ) {
+      console.log("Aqui logueo al usuario");
+      setUsuarioLogueado(true);
+      Swal.fire({
+        title: "Bienvenido administrador",
+        text: "Iniciaste sesion correctamente",
+        icon: "success",
+      });
+      navegacion("/admin");
+    } else {
+      Swal.fire({
+        title: "Ocurrio un error",
+        text: "Credenciales incorrectas",
+        icon: "error",
+      });
+    }
+  };
 
     Swal.fire({
       title: "Bienvenido administrador",

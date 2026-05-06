@@ -48,6 +48,52 @@ function App() {
           />
         </Routes>
 
+import { useState } from "react";
+
+import RutaProtegida from "./componets/ProtectorAdmin"; 
+
+function App() {
+  const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/Login" element={<Login setUsuarioLogueado={setUsuarioLogueado} />} />
+          <Route path="/Registro" element={<Registro />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/detalle/:id" element={<DetalleCancion />} />
+
+          {/* Protegemos la tabla principal */}
+        <Route 
+          path="/admin" 
+          element={
+            <RutaProtegida usuarioLogueado={usuarioLogueado}>
+              <Admin />
+            </RutaProtegida>
+          } 
+        />
+
+        {/* Protegemos el formulario de Crear */}
+        <Route 
+          path="/admin/crear" 
+          element={
+            <RutaProtegida usuarioLogueado={usuarioLogueado}>
+              <FormularioCancion titulo="Crear Canción" />
+            </RutaProtegida>
+          } 
+        />
+
+        {/* Protegemos el formulario de Editar */}
+        <Route 
+          path="/admin/editar/:id" 
+          element={
+            <RutaProtegida usuarioLogueado={usuarioLogueado}>
+              <FormularioCancion titulo="Editar Canción" />
+            </RutaProtegida>
+          } 
+        />
+        </Routes>
         <Footer />
       </BrowserRouter>
     </AuthProvider>
