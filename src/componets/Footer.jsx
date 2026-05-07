@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logoImagen from "../assets/Logo.png";
 
+
 const Footer = () => {
   return (
     <footer className="bg-dark text-light py-5">
@@ -14,18 +15,49 @@ const Footer = () => {
               Música y codigo en un solo lugar.
             </p>
             <div className="fs-4">
-              <i className="bi bi-facebook me-3"></i>
-              <i className="bi bi-instagram me-3"></i>
-              <i className="bi bi-whatsapp"></i>
+              <a
+                href="https://www.facebook.com/RollingCodeSchool/"
+                target="_blank"
+                className="text-decoration-none text-secondary"
+              >
+                <i className="bi bi-facebook me-3"></i>
+              </a>
+
+              <a
+                href="https://www.instagram.com/rollingcodeschool/"
+                target="_blank"
+                className="text-decoration-none text-secondary"
+              >
+                <i className="bi bi-instagram me-3"></i>
+              </a>
+
+              <a
+                href="https://wa.me/5493816478506"
+                target="_blank"
+                className="text-decoration-none text-secondary"
+              >
+                <i className="bi bi-whatsapp me-3"></i>
+              </a>
+
+              <a
+                href="https://web.rollingcodeschool.com/"
+                target="_blank"
+                className="text-decoration-none text-secondary"
+              >
+                <i className="bi bi-globe"></i>
+              </a>
             </div>
           </Col>
 
           <Col xs={12} md={4} className="text-center">
             <h5>Navegación</h5>
             <ul className="list-unstyled mt-3">
-              <li className="text-decoration-none text-secondary" >Inicio</li>
-              <li className="text-decoration-none text-secondary" >Nosotros</li>
-              <li className="text-decoration-none text-secondary" >Administrador</li>
+              <li>
+                <Link to="/" className="text-decoration-none text-secondary"> Inicio </Link>
+              </li>
+              <li>
+                <Link to="/playlist" className="text-decoration-none text-secondary"> Playlist </Link>
+              </li>
             </ul>
           </Col>
 
