@@ -138,7 +138,7 @@ const Login = ({ setUsuarioLogueado }) => {
                     <Form.Label className="fw-bold">Email:</Form.Label>
                     <Form.Control
                       type="email"
-                      placeholder="diego@gmail.com"
+                      placeholder="RollingCode@gmail.com"
                       className="bg-dark text-light border-light input"
                       {...register("email", {
                         required: "El email es un campo obligatorio",

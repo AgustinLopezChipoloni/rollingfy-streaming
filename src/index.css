@@ -41,3 +41,6 @@
 .input:focus {
   box-shadow: none;
 }
+body {
+  background-color: #000000;
+}
