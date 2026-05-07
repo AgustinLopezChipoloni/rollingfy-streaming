@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { Button, Table, Container } from "react-bootstrap";
+import { Button, Table, Container,Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { cancionesIniciales } from "../helpers/DatosInicio";
 
+
 const Admin = () => {
   const [canciones, setCanciones] = useState([]);
+
+  const [mostrarReproductor, setMostrarReproductor] = useState(false);
+  const [urlEmbed, setUrlEmbed] = useState("");
 
   const obtenerCanciones = () => {
     const cancionesGuardadas = JSON.parse(localStorage.getItem("canciones")) || [];
@@ -21,6 +25,22 @@ const Admin = () => {
   useEffect(() => {
     obtenerCanciones();
   }, []);
+
+   const abrirReproductor = (url) => {
+    let urlAdaptada = url;
+    // Transformamos el enlace normal a versión "embed" para el iframe
+    if (url.includes("spotify.com/track/")) {
+      const idTrack = url.split("track/")[1].split("?")[0];
+      urlAdaptada = `https://open.spotify.com/embed/track/${idTrack}?utm_source=generator`;
+    }
+    setUrlEmbed(urlAdaptada);
+    setMostrarReproductor(true);
+  };
+
+  const cerrarReproductor = () => {
+    setMostrarReproductor(false);
+    setUrlEmbed(""); // Limpiamos la URL para detener la música
+  };
 
   const borrarCancion = (id, nombre) => {
     Swal.fire({
@@ -106,15 +126,14 @@ const Admin = () => {
                 </td>
 
                 <td className="align-middle text-center">
-                  <a
-                    href={cancion.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-success rounded-circle"
-                    title="Escuchar en Spotify"
+                   <Button
+                    variant="success"
+                    className="rounded-circle"
+                    title="Escuchar aquí"
+                    onClick={() => abrirReproductor(cancion.url)}
                   >
                     <i className="bi bi-play-fill fs-5"></i>
-                  </a>
+                  </Button>
                 </td>
 
                 <td>
@@ -160,6 +179,26 @@ const Admin = () => {
           </tbody>
         </Table>
       </Container>
+
+      <Modal show={mostrarReproductor} onHide={cerrarReproductor} centered>
+        <Modal.Header closeButton className="bg-dark text-light border-secondary">
+          <Modal.Title>Reproductor de Spotify</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="bg-dark p-0 text-center">
+          {urlEmbed ? (
+            <iframe
+              style={{ borderRadius: "12px", width: "100%", height: "152px" }}
+              src={urlEmbed}
+              frameBorder="0"
+              allowFullScreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          ) : (
+            <p className="text-light p-4">Cargando...</p>
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
