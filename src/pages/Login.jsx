@@ -47,7 +47,8 @@ const Login = ({ setUsuarioLogueado }) => {
     const usuarioEncontrado = usuarios.find(
       (usuario) =>
         usuario.email === datos.email.trim().toLowerCase() &&
-        usuario.password === datos.password.trim(),
+        usuario.password === datos.password.trim() &&
+        usuario.activo ===true,
     );
 
     if (usuarioEncontrado) {
